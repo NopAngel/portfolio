@@ -2,13 +2,11 @@
 function Card({
   image,
   title,
-  github,
   desc,
   language,
 }: {
   image: string;
   title: string;
-  github: string;
   desc: string;
   language: string[];
 }) {
