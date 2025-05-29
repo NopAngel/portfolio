@@ -12,7 +12,7 @@ function Card({
 }) {
   return (
     <article className="w-[450px] border-x-[0.1px] border-gray-700 border-y-[0.1px] p-2 rounded-lg">
-      <img src={image} alt={title} width="230px" />
+      <img src={image} alt={title} />
       <section>
         <h1 className="text-xl p-2">{title}</h1>
         <p className="p-1 opacity-50">{desc}</p>
