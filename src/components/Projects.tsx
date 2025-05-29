@@ -10,10 +10,10 @@ function Projects() {
       language: ["C", "Assembly"],
     },
     project2: {
-      image: "/spotify.png",
-      title: "Spotify Clone",
-      desc: "This is a Spotify clone (completely aesthetic) with a clean and easy-to-see UI. Made with React.js components, but in Astro.js.",
-      language: ["Astro.js", "TailwindCSS"],
+      image: "https://github.com/NopAngel/axisql/blob/main/assets/icon.png?raw=true",
+      title: "AxiSQL",
+      desc: "This is a database (created by me) inspired by SQL. It allows you to perform basic functions and runs like PlayGround.",
+      language: ["C", "C++"],
     },
     project3: {
       image: "/emojix.png",
