@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,7 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" integrity="sha512-t7Few9xlddEmgd3oKZQahkNI4dS6l80+eGEzFQiqtyVYdvcSG2D3Iub77R20BdotfRPA9caaRkg1tyaJiPmO0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        /* Variables CSS para los temas */
         :root {
+            /* Catppuccin (default) */
             --base: #1e1e2e;
             --mantle: #181825;
             --crust: #11111b;
@@ -20,12 +21,47 @@
             --peach: #fab387;
             --sapphire: #74c7ec;
             --surface0: #313244;
+            --theme-name: 'Catppuccin';
         }
+
+        .theme-gruvbox {
+            --base: #282828;
+            --mantle: #1d2021;
+            --crust: #141617;
+            --text: #ebdbb2;
+            --subtext: #d5c4a1;
+            --mauve: #b16286;
+            --blue: #458588;
+            --green: #98971a;
+            --peach: #d79921;
+            --sapphire: #83a598;
+            --surface0: #3c3836;
+            --theme-name: 'Gruvbox';
+        }
+
+        .theme-solarized {
+            --base: #002b36;
+            --mantle: #073642;
+            --crust: #00212b;
+            --text: #839496;
+            --subtext: #93a1a1;
+            --mauve: #6c71c4;
+            --blue: #268bd2;
+            --green: #859900;
+            --peach: #cb4b16;
+            --sapphire: #2aa198;
+            --surface0: #586e75;
+            --theme-name: 'Solarized';
+        }
+
+        /* Aplicar las variables a los elementos */
         body {
             background-color: var(--base);
             color: var(--text);
             font-family: 'JetBrains Mono', 'Geist Mono', monospace;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         .card {
             background-color: var(--mantle);
             border: 1px solid var(--surface0);
@@ -35,12 +71,14 @@
             border-color: var(--mauve);
             transform: translateY(-4px);
         }
+
+        /* Clases de color dinámicas */
         .cat-mauve { color: var(--mauve); }
         .cat-blue { color: var(--blue); }
         .cat-green { color: var(--green); }
         .cat-peach { color: var(--peach); }
         .cat-sapphire { color: var(--sapphire); }
-        .bg-mauve-soft { background-color: rgba(203, 166, 247, 0.1); }
+        .bg-mauve-soft { background-color: rgba(var(--mauve-rgb), 0.1); }
 
         .skill-icon {
             display: inline-block;
@@ -62,6 +100,91 @@
         .icon-terminal { background-color: var(--green); }
         .icon-container { background-color: var(--blue); }
 
+        /* Selector de temas */
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-btn {
+            background-color: var(--mantle);
+            border: 1px solid var(--surface0);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-btn:hover {
+            background-color: var(--surface0);
+            border-color: var(--mauve);
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--mantle);
+            border: 1px solid var(--surface0);
+            border-radius: 8px;
+            padding: 8px;
+            min-width: 180px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .theme-dropdown.active {
+            display: flex;
+        }
+
+        .theme-option {
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .theme-option:hover {
+            background-color: var(--surface0);
+        }
+
+        .theme-option.active {
+            background-color: var(--surface0);
+            border-left: 3px solid var(--mauve);
+        }
+
+        .theme-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--surface0);
+        }
+
+        .theme-catppuccin .theme-color {
+            background: linear-gradient(135deg, #cba6f7 25%, #89b4fa 50%, #a6e3a1 75%, #fab387 100%);
+        }
+
+        .theme-gruvbox-option .theme-color {
+            background: linear-gradient(135deg, #b16286 25%, #458588 50%, #98971a 75%, #d79921 100%);
+        }
+
+        .theme-solarized-option .theme-color {
+            background: linear-gradient(135deg, #6c71c4 25%, #268bd2 50%, #859900 75%, #cb4b16 100%);
+        }
+
         /* Mejoras para móviles */
         @media (max-width: 640px) {
             .mobile-stack {
@@ -76,6 +199,27 @@
             .mobile-full-width {
                 width: 100% !important;
             }
+
+            .theme-selector {
+                top: 10px;
+                right: 10px;
+            }
+
+            .theme-btn span {
+                display: none;
+            }
+
+            .theme-btn {
+                padding: 8px;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+            }
+
+            .theme-dropdown {
+                min-width: 160px;
+                right: -10px;
+            }
         }
 
         /* Efectos hover para íconos de contacto */
@@ -85,119 +229,305 @@
         .contact-icon:hover {
             transform: scale(1.1);
         }
-        
+
         /* Animación de copiado */
         @keyframes copyFlash {
             0% { background-color: transparent; }
-            50% { background-color: rgba(203, 166, 247, 0.2); }
+            50% { background-color: rgba(var(--mauve-rgb), 0.2); }
             100% { background-color: transparent; }
         }
-        
+
         .copy-flash {
             animation: copyFlash 0.5s ease;
         }
+
+        /* Estilos para el modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(var(--crust-rgb), 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background-color: var(--mantle);
+            border: 1px solid var(--surface0);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            margin: 1rem;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        /* Scrollbar personalizado */
+        .modal-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-container::-webkit-scrollbar-track {
+            background: var(--surface0);
+            border-radius: 4px;
+        }
+
+        .modal-container::-webkit-scrollbar-thumb {
+            background: var(--mauve);
+            border-radius: 4px;
+        }
+
+        .modal-container::-webkit-scrollbar-thumb:hover {
+            background: var(--mauve);
+            opacity: 0.8;
+        }
+
+        /* Botón View More */
+        .view-more-btn {
+            background-color: var(--surface0);
+            border: 1px solid var(--surface0);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .view-more-btn:hover {
+            background-color: var(--mauve);
+            color: var(--crust);
+            border-color: var(--mauve);
+            transform: translateY(-2px);
+        }
+
+        /* Border colors dinámicos */
+        .border-surface0 {
+            border-color: var(--surface0) !important;
+        }
+
+        /* Clases para elementos con transición suave */
+        .theme-transition {
+            transition: background-color 0.3s ease,
+                        color 0.3s ease,
+                        border-color 0.3s ease,
+                        transform 0.3s ease;
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 max-w-5xl mx-auto">
+<body class="theme-transition">
 
-    <!-- Header -->
-    <header class="mb-8 md:mb-16 mt-8 md:mt-16 flex flex-col md:flex-row mobile-stack items-center md:items-start gap-6 md:gap-0">
-        <section class="order-2 md:order-1 w-full md:w-2/3 mobile-text-center md:text-left">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 cat-mauve" id="name">NopAngel</h1>
-            <p class="text-lg sm:text-xl md:text-xl cat-blue mb-4" id="title">Software Developer | Indie & Open Source</p>
-            <p class="text-subtext text-sm md:text-base max-w-2xl leading-relaxed" id="description">Passionate about low-level systems development, productivity tools, and Unix philosophy.</p>
-        </section>
-        <section class="order-1 md:order-2 w-full md:w-1/3 flex justify-center md:justify-end mobile-mb-4">
-            <img src="https://avatars.githubusercontent.com/u/155915830?v=4" 
-                 class="rounded-full w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48" 
-                 alt="NopAngel AVATAR GitHub" />
-        </section>
-    </header>
-
-
-    <!-- Skills -->
-    <section class="mb-12 md:mb-16">
-        <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2 border-[#313244]">Technical Arsenal</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="skills-container">
-
-        </div>
-    </section>
-
-    <!-- Projects -->
-    <section class="mb-12 md:mb-16">
-        <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2 border-[#313244]">Forge & Labs</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6" id="projects-container">
-
-        </div>
-    </section>
-
-    <!-- Nueva sección de Contact simplificada -->
-    <section class="mb-12 md:mb-16">
-        <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2 border-[#313244]">Connect With Me</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            <!-- Email -->
-            <div class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300">
-                <div class="contact-icon cat-peach mb-3">
-                    <i class="bi bi-envelope-fill text-3xl"></i>
+    <!-- Selector de temas -->
+    <div class="theme-selector">
+        <button class="theme-btn" id="theme-toggle">
+            <i class="bi bi-palette"></i>
+            <span id="current-theme">Catppuccin</span>
+            <i class="bi bi-chevron-down"></i>
+        </button>
+        <div class="theme-dropdown" id="theme-dropdown">
+            <div class="theme-option theme-catppuccin active" data-theme="default">
+                <div class="theme-color"></div>
+                <div>
+                    <div class="font-medium">Catppuccin</div>
+                    <div class="text-xs text-subtext">Modern & Smooth</div>
                 </div>
-                <h3 class="text-lg font-bold mb-2">Email</h3>
-                <p class="text-subtext text-sm mb-4 font-mono">angelgabrielnieto@outlook.com</p>
-                <button onclick="copyToClipboard('angelgabrielnieto@outlook.com', this)" 
-                        class="text-xs px-4 py-2 rounded-lg bg-surface0 hover:bg-peach hover:text-crust transition-colors w-full">
-                    Copy Email
+            </div>
+            <div class="theme-option theme-gruvbox-option" data-theme="gruvbox">
+                <div class="theme-color"></div>
+                <div>
+                    <div class="font-medium">Gruvbox</div>
+                    <div class="text-xs text-subtext">Retro & Cozy</div>
+                </div>
+            </div>
+            <div class="theme-option theme-solarized-option" data-theme="solarized">
+                <div class="theme-color"></div>
+                <div>
+                    <div class="font-medium">Solarized</div>
+                    <div class="text-xs text-subtext">Professional & Clean</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-4 md:p-8 max-w-5xl mx-auto">
+        <!-- Header -->
+        <header class="mb-8 md:mb-16 mt-16 md:mt-20 flex flex-col md:flex-row mobile-stack items-center md:items-start gap-6 md:gap-0">
+            <section class="order-2 md:order-1 w-full md:w-2/3 mobile-text-center md:text-left">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 cat-mauve" id="name">NopAngel</h1>
+                <p class="text-lg sm:text-xl md:text-xl cat-blue mb-4" id="title">Software Developer | Indie & Open Source</p>
+                <p class="text-subtext text-sm md:text-base max-w-2xl leading-relaxed" id="description">Passionate about low-level systems development, productivity tools, and Unix philosophy.</p>
+            </section>
+            <section class="order-1 md:order-2 w-full md:w-1/3 flex justify-center md:justify-end mobile-mb-4">
+                <img src="https://avatars.githubusercontent.com/u/155915830?v=4"
+                     class="rounded-full w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48"
+                     alt="NopAngel AVATAR GitHub" />
+            </section>
+        </header>
+
+
+        <!-- Skills -->
+        <section class="mb-12 md:mb-16">
+            <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2">Technical Arsenal</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="skills-container">
+
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="mb-12 md:mb-16">
+            <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2">Forge & Labs</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6" id="projects-container">
+
+            </div>
+
+            <!-- Botón View More -->
+            <div class="mt-8 text-center">
+                <button id="view-more-btn" class="view-more-btn px-6 py-3 rounded-lg font-medium flex items-center gap-2 mx-auto">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                    View More Projects
                 </button>
             </div>
-            
-            <!-- GitHub -->
-            <a href="https://github.com/NopAngel" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300 no-underline block">
-                <div class="contact-icon cat-mauve mb-3">
-                    <i class="bi bi-github text-3xl"></i>
-                </div>
-                <h3 class="text-lg font-bold mb-2">GitHub</h3>
-                <p class="text-subtext text-sm mb-4">@NopAngel</p>
-                <div class="text-xs px-4 py-2 rounded-lg bg-surface0 text-subtext">
-                    View Profile
-                </div>
-            </a>
-            
-            <!-- LinkedIn -->
-            <a href="https://linkedin.com/in/angel-nieto-b1a772356/" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300 no-underline block">
-                <div class="contact-icon cat-blue mb-3">
-                    <i class="bi bi-linkedin text-3xl"></i>
-                </div>
-                <h3 class="text-lg font-bold mb-2">LinkedIn</h3>
-                <p class="text-subtext text-sm mb-4">NopAngel</p>
-                <div class="text-xs px-4 py-2 rounded-lg bg-surface0 text-subtext">
-                    Connect
-                </div>
-            </a>
-            
-            <!-- Discord -->
-            </div>
-        
-        <!-- Mensaje adicional -->
-        <div class="mt-8 text-center">
-            <p class="text-subtext text-sm md:text-base max-w-2xl mx-auto">
-                Feel free to reach out for collaborations, questions about my projects, 
-                or just to chat about tech and open source!
-            </p>
-            <p class="text-xs text-subtext mt-4">
-                <i class="bi bi-clock mr-1"></i> Response time: Usually within 24-48 hours
-            </p>
-        </div>
-    </section>
+        </section>
 
-    <footer class="mt-12 md:mt-20 pt-6 md:pt-8 border-t border-surface0 text-center text-subtext text-sm border-[#313244] flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-xs sm:text-sm">@Copyright 2025 NopAngel</p>
-        <a href="https://github.com/NopAngel/" class="bi bi-github text-lg sm:text-xl hover:text-mauve transition-colors"></a>
-    </footer>
+        <!-- Modal para más proyectos -->
+        <div class="modal-overlay" id="projects-modal">
+            <div class="modal-container">
+                <!-- Header del modal -->
+                <div class="top-0 bg-mantle border-b border-surface0 p-6 z-10">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-2xl font-bold cat-mauve">All Projects</h2>
+                        <button id="close-modal" class="text-2xl text-subtext hover:text-text transition-colors">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <p class="text-subtext mt-2">A comprehensive list of my open source projects and contributions</p>
+                </div>
+
+                <!-- Contenido del modal -->
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="modal-projects-container">
+                        <!-- Los proyectos se insertarán aquí dinámicamente -->
+                    </div>
+
+                    <!-- Stats o info adicional -->
+                    <div class="mt-10 pt-6 border-t border-surface0">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                            <div class="p-4 rounded-lg bg-surface0/30">
+                                <div class="text-2xl font-bold cat-blue">15+</div>
+                                <div class="text-xs uppercase tracking-widest text-subtext mt-1">Projects</div>
+                            </div>
+                            <div class="p-4 rounded-lg bg-surface0/30">
+                                <div class="text-2xl font-bold cat-green">8</div>
+                                <div class="text-xs uppercase tracking-widest text-subtext mt-1">Languages</div>
+                            </div>
+
+                            <div class="p-4 rounded-lg bg-surface0/30">
+                                <div class="text-2xl font-bold cat-mauve">24/7</div>
+                                <div class="text-xs uppercase tracking-widest text-subtext mt-1">Active</div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-8 text-subtext text-sm">
+                            <p>For the most up-to-date projects and contributions, visit my <a href="https://github.com/NopAngel" class="cat-blue hover:underline">GitHub profile</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Contact simplificada -->
+        <section class="mb-12 md:mb-16">
+            <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2">Connect With Me</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Email -->
+                <div class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300">
+                    <div class="contact-icon cat-peach mb-3">
+                        <i class="bi bi-envelope-fill text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Email</h3>
+                    <p class="text-subtext text-sm mb-4 font-mono">contact@nopangel.dev</p>
+                    <button onclick="copyToClipboard('contact@nopangel.dev', this)"
+                            class="text-xs px-4 py-2 rounded-lg bg-surface0 hover:bg-peach hover:text-crust transition-colors w-full">
+                        Copy Email
+                    </button>
+                </div>
+
+                <!-- GitHub -->
+                <a href="https://github.com/NopAngel"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300 no-underline block">
+                    <div class="contact-icon cat-mauve mb-3">
+                        <i class="bi bi-github text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">GitHub</h3>
+                    <p class="text-subtext text-sm mb-4">@NopAngel</p>
+                    <div class="text-xs px-4 py-2 rounded-lg bg-surface0 text-subtext">
+                        View Profile
+                    </div>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/nopangel"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300 no-underline block">
+                    <div class="contact-icon cat-blue mb-3">
+                        <i class="bi bi-linkedin text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">LinkedIn</h3>
+                    <p class="text-subtext text-sm mb-4">NopAngel</p>
+                    <div class="text-xs px-4 py-2 rounded-lg bg-surface0 text-subtext">
+                        Connect
+                    </div>
+                </a>
+
+                <!-- Discord -->
+                <div class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300">
+                    <div class="contact-icon cat-sapphire mb-3">
+                        <i class="bi bi-discord text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Discord</h3>
+                    <p class="text-subtext text-sm mb-4 font-mono">nopangel</p>
+                    <button onclick="copyToClipboard('nopangel', this)"
+                            class="text-xs px-4 py-2 rounded-lg bg-surface0 hover:bg-sapphire hover:text-crust transition-colors w-full">
+                        Copy Username
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mensaje adicional -->
+            <div class="mt-8 text-center">
+                <p class="text-subtext text-sm md:text-base max-w-2xl mx-auto">
+                    Feel free to reach out for collaborations, questions about my projects,
+                    or just to chat about tech and open source!
+                </p>
+                <p class="text-xs text-subtext mt-4">
+                    <i class="bi bi-clock mr-1"></i> Response time: Usually within 24-48 hours
+                </p>
+            </div>
+        </section>
+
+        <footer class="mt-12 md:mt-20 pt-6 md:pt-8 border-t border-surface0 text-center text-subtext text-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-xs sm:text-sm">@Copyright 2025 NopAngel</p>
+            <a href="https://github.com/NopAngel/" class="bi bi-github text-lg sm:text-xl hover:text-mauve transition-colors"></a>
+        </footer>
+    </div>
 
     <script>
 
@@ -225,7 +555,8 @@
                 ]
             },
 
-            projects: [
+            // Proyectos principales (mostrados en la página principal)
+            mainProjects: [
                 {
                     name: "blueos",
                     description: "An operating system developed from scratch for x86 architectures.",
@@ -235,8 +566,8 @@
                 },
                 {
                     name: "sushi-editor",
-                    description: "based in `coreutils`",
-                    tags: ["C", "Make"],
+                    description: "Minimalist text editor designed for speed and simplicity.",
+                    tags: ["Electron", "TypeScript"],
                     color: "cat-green",
                     href: "https://github.com/NopAngel/sushi"
                 },
@@ -254,9 +585,175 @@
                     color: "cat-peach",
                     href: "https://github.com/NopAngel/emojix"
                 }
+            ],
+
+            additionalProjects: [
+                {
+                    name: "rmk",
+                    description: "`rm` alternative",
+                    tags: ["Rust"],
+                    color: "cat-blue",
+                    href: "https://github.com/NopAngel/rmk",
+                    status: "active"
+                },
+                {
+                    name: "printk",
+                    description: "`echo`/`print` with icons",
+                    tags: ["Rust", "Terminal"],
+                    color: "cat-peach",
+                    href: "https://github.com/NopAngel/printk",
+                    status: "active"
+                },
+                {
+                    name: "axisql",
+                    description: "Database based in C",
+                    tags: ["C", "Terminal"],
+                    color: "cat-blue",
+                    href: "https://github.com/NopAngel/axisql",
+                    status: "completed"
+                },
+                {
+                    name: "ffva",
+                    description: "app for the view assembly of an application",
+                    tags: ["C", "M4", "Make"],
+                    color: "cat-green",
+                    href: "https://github.com/NopAngel/ffva",
+                    status: "wip"
+                },
+                {
+                    name: "omg",
+                    description: "OMG - img file format.",
+                    tags: ["Go"],
+                    color: "cat-blue",
+                    href: "https://github.com/NopAngel/omg",
+                    status: "active"
+                },
+                {
+                    name: "fired",
+                    description: "Fast terminal file manager",
+                    tags: ["C++"],
+                    color: "cat-sapphire",
+                    href: "https://github.com/NopAngel/fired",
+                    status: "completed"
+                },
+                {
+                    name: "flowleaf",
+                    description: "FlowLeaf is a superset of HTML that compiles to produce clean HTML, CSS, and JS output.",
+                    tags: ["Go"],
+                    color: "cat-mauve",
+                    href: "https://github.com/NopAngel/flowleaf",
+                    status: "active"
+                },
+                {
+                    name: "litecode",
+                    description: "The fastest code editor.",
+                    tags: ["Python", "Distributed"],
+                    color: "cat-blue",
+                    href: "https://github.com/NopAngel/litecode",
+                    status: "wip"
+                },
+                {
+                    name: "pool",
+                    description: "Script to optimize Linux (any distribution)",
+                    tags: ["Shell"],
+                    color: "cat-peach",
+                    href: "https://github.com/NopAngel/pool",
+                    status: "active"
+                }
             ]
         };
 
+        // Sistema de temas
+        class ThemeManager {
+            constructor() {
+                this.themes = {
+                    'default': 'Catppuccin',
+                    'gruvbox': 'Gruvbox',
+                    'solarized': 'Solarized'
+                };
+
+                this.currentTheme = localStorage.getItem('portfolio-theme') || 'default';
+                this.init();
+            }
+
+            init() {
+                this.applyTheme(this.currentTheme);
+                this.setupEventListeners();
+                this.updateThemeUI();
+            }
+
+            applyTheme(themeName) {
+                // Remover todas las clases de tema
+                document.documentElement.classList.remove('theme-gruvbox', 'theme-solarized');
+
+                // Aplicar la nueva clase de tema
+                if (themeName !== 'default') {
+                    document.documentElement.classList.add(`theme-${themeName}`);
+                }
+
+                // Actualizar variable CSS para theme-name
+                document.documentElement.style.setProperty('--theme-name', this.themes[themeName]);
+
+                // Guardar en localStorage
+                localStorage.setItem('portfolio-theme', themeName);
+                this.currentTheme = themeName;
+
+                // Actualizar UI
+                this.updateThemeUI();
+            }
+
+            updateThemeUI() {
+                const themeName = this.themes[this.currentTheme];
+                const currentThemeEl = document.getElementById('current-theme');
+                if (currentThemeEl) {
+                    currentThemeEl.textContent = themeName;
+                }
+
+                // Actualizar opciones activas
+                document.querySelectorAll('.theme-option').forEach(option => {
+                    option.classList.remove('active');
+                    if (option.dataset.theme === this.currentTheme) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+
+            setupEventListeners() {
+                // Toggle dropdown
+                const themeToggle = document.getElementById('theme-toggle');
+                const themeDropdown = document.getElementById('theme-dropdown');
+
+                if (themeToggle && themeDropdown) {
+                    themeToggle.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        themeDropdown.classList.toggle('active');
+                    });
+
+                    // Cerrar dropdown al hacer clic fuera
+                    document.addEventListener('click', (e) => {
+                        if (!themeToggle.contains(e.target) && !themeDropdown.contains(e.target)) {
+                            themeDropdown.classList.remove('active');
+                        }
+                    });
+
+                    // Seleccionar tema
+                    document.querySelectorAll('.theme-option').forEach(option => {
+                        option.addEventListener('click', () => {
+                            const theme = option.dataset.theme;
+                            this.applyTheme(theme);
+                            themeDropdown.classList.remove('active');
+                        });
+                    });
+                }
+
+                // Cerrar dropdown con Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        themeDropdown.classList.remove('active');
+                    }
+                });
+            }
+        }
 
         function renderSkills() {
             const container = document.getElementById('skills-container');
@@ -290,7 +787,7 @@
             const container = document.getElementById('projects-container');
             container.innerHTML = '';
 
-            portfolioData.projects.forEach(project => {
+            portfolioData.mainProjects.forEach(project => {
                 const projectCard = document.createElement('div');
                 projectCard.className = 'card p-4 md:p-6 rounded-xl h-full';
 
@@ -333,40 +830,103 @@
             });
         }
 
+        function renderModalProjects() {
+            const container = document.getElementById('modal-projects-container');
+            container.innerHTML = '';
+
+            // Combinar proyectos principales y adicionales para el modal
+            const allProjects = [...portfolioData.mainProjects, ...portfolioData.additionalProjects];
+
+            allProjects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'card p-5 rounded-xl h-full';
+
+                const header = document.createElement('section');
+                header.className = 'flex items-start justify-between mb-3';
+
+                const titleContainer = document.createElement('div');
+                titleContainer.className = 'flex-1';
+
+                const title = document.createElement('h3');
+                title.className = `text-lg font-bold ${project.color} truncate`;
+                title.innerHTML = `~/${project.name}`;
+
+                // Badge de estado si existe
+                if (project.status) {
+                    const statusBadge = document.createElement('span');
+                    statusBadge.className = `text-[10px] px-2 py-1 rounded-full ml-2 ${
+                        project.status === 'active' ? 'bg-green/20 text-green' :
+                        project.status === 'wip' ? 'bg-peach/20 text-peach' :
+                        'bg-blue/20 text-blue'
+                    }`;
+                    statusBadge.textContent = project.status.toUpperCase();
+                    title.appendChild(statusBadge);
+                }
+
+                titleContainer.appendChild(title);
+                header.appendChild(titleContainer);
+
+                const githubLink = document.createElement('a');
+                githubLink.href = project.href;
+                githubLink.target = '_blank';
+                githubLink.rel = 'noopener noreferrer';
+                githubLink.className = 'ml-2';
+                githubLink.innerHTML = '<i class="bi bi-github text-lg hover:text-mauve transition-colors"></i>';
+                header.appendChild(githubLink);
+
+                const description = document.createElement('p');
+                description.className = 'text-subtext text-sm mb-4 line-clamp-3';
+                description.textContent = project.description;
+
+                const tagsContainer = document.createElement('div');
+                tagsContainer.className = 'flex flex-wrap gap-2';
+
+                project.tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'text-[10px] uppercase px-2 py-1 bg-surface0 rounded text-text';
+                    tagElement.textContent = tag;
+                    tagsContainer.appendChild(tagElement);
+                });
+
+                projectCard.appendChild(header);
+                projectCard.appendChild(description);
+                projectCard.appendChild(tagsContainer);
+
+                container.appendChild(projectCard);
+            });
+        }
+
         // Función para copiar al portapapeles
         function copyToClipboard(text, button) {
             navigator.clipboard.writeText(text).then(() => {
-                // Efecto visual en la tarjeta
                 const card = button.closest('.card');
                 card.classList.add('copy-flash');
-                
-                // Cambiar texto del botón
+
                 const originalText = button.textContent;
                 button.textContent = 'Copied!';
                 button.classList.add('bg-green', 'text-crust');
                 button.classList.remove('bg-surface0', 'hover:bg-peach', 'hover:bg-sapphire');
-                
-                // Restaurar después de 2 segundos
+
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.classList.remove('bg-green', 'text-crust');
                     button.classList.add('bg-surface0');
-                    
+
                     if (text.includes('@')) {
                         button.classList.add('hover:bg-peach');
                     } else {
                         button.classList.add('hover:bg-sapphire');
                     }
                     button.classList.add('hover:text-crust');
-                    
+
                     card.classList.remove('copy-flash');
                 }, 2000);
-                
+
             }).catch(err => {
                 console.error('Error al copiar: ', err);
                 button.textContent = 'Error!';
                 button.classList.add('bg-peach', 'text-crust');
-                
+
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.classList.remove('bg-peach', 'text-crust');
@@ -375,13 +935,59 @@
             });
         }
 
+        // Funciones para el modal
+        function openModal() {
+            const modal = document.getElementById('projects-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('projects-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restaurar scroll del body
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar el gestor de temas
+            const themeManager = new ThemeManager();
+
             document.getElementById('name').textContent = portfolioData.name;
             document.getElementById('title').textContent = portfolioData.title;
             document.getElementById('description').textContent = portfolioData.description;
             renderSkills();
             renderProjects();
-            
+            renderModalProjects();
+
+            // Configurar botón View More
+            const viewMoreBtn = document.getElementById('view-more-btn');
+            if (viewMoreBtn) {
+                viewMoreBtn.addEventListener('click', openModal);
+            }
+
+            // Configurar botón de cerrar modal
+            const closeModalBtn = document.getElementById('close-modal');
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeModal);
+            }
+
+            // Cerrar modal al hacer clic fuera del contenido
+            const modalOverlay = document.getElementById('projects-modal');
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', function(e) {
+                    if (e.target === modalOverlay) {
+                        closeModal();
+                    }
+                });
+            }
+
+            // Cerrar modal con tecla Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
             // Mejorar la experiencia táctil en móviles
             if ('ontouchstart' in window) {
                 const projectCards = document.querySelectorAll('.card');
