@@ -7,9 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" integrity="sha512-t7Few9xlddEmgd3oKZQahkNI4dS6l80+eGEzFQiqtyVYdvcSG2D3Iub77R20BdotfRPA9caaRkg1tyaJiPmO0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Variables CSS para los temas */
         :root {
-            /* Catppuccin (default) */
+
             --base: #1e1e2e;
             --mantle: #181825;
             --crust: #11111b;
@@ -54,7 +53,7 @@
             --theme-name: 'Solarized';
         }
 
-        /* Aplicar las variables a los elementos */
+
         body {
             background-color: var(--base);
             color: var(--text);
@@ -72,7 +71,7 @@
             transform: translateY(-4px);
         }
 
-        /* Clases de color dinámicas */
+
         .cat-mauve { color: var(--mauve); }
         .cat-blue { color: var(--blue); }
         .cat-green { color: var(--green); }
@@ -100,7 +99,7 @@
         .icon-terminal { background-color: var(--green); }
         .icon-container { background-color: var(--blue); }
 
-        /* Selector de temas */
+
         .theme-selector {
             position: fixed;
             top: 20px;
@@ -185,7 +184,7 @@
             background: linear-gradient(135deg, #6c71c4 25%, #268bd2 50%, #859900 75%, #cb4b16 100%);
         }
 
-        /* Mejoras para móviles */
+
         @media (max-width: 640px) {
             .mobile-stack {
                 flex-direction: column !important;
@@ -222,7 +221,6 @@
             }
         }
 
-        /* Efectos hover para íconos de contacto */
         .contact-icon {
             transition: all 0.3s ease;
         }
@@ -230,7 +228,6 @@
             transform: scale(1.1);
         }
 
-        /* Animación de copiado */
         @keyframes copyFlash {
             0% { background-color: transparent; }
             50% { background-color: rgba(var(--mauve-rgb), 0.2); }
@@ -241,7 +238,7 @@
             animation: copyFlash 0.5s ease;
         }
 
-        /* Estilos para el modal */
+
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -300,7 +297,7 @@
             opacity: 0.8;
         }
 
-        /* Botón View More */
+
         .view-more-btn {
             background-color: var(--surface0);
             border: 1px solid var(--surface0);
@@ -315,12 +312,11 @@
             transform: translateY(-2px);
         }
 
-        /* Border colors dinámicos */
+
         .border-surface0 {
             border-color: var(--surface0) !important;
         }
 
-        /* Clases para elementos con transición suave */
         .theme-transition {
             transition: background-color 0.3s ease,
                         color 0.3s ease,
@@ -331,7 +327,6 @@
 </head>
 <body class="theme-transition">
 
-    <!-- Selector de temas -->
     <div class="theme-selector">
         <button class="theme-btn" id="theme-toggle">
             <i class="bi bi-palette"></i>
@@ -394,7 +389,7 @@
 
             </div>
 
-            <!-- Botón View More -->
+
             <div class="mt-8 text-center">
                 <button id="view-more-btn" class="view-more-btn px-6 py-3 rounded-lg font-medium flex items-center gap-2 mx-auto">
                     <i class="bi bi-grid-3x3-gap"></i>
@@ -403,10 +398,9 @@
             </div>
         </section>
 
-        <!-- Modal para más proyectos -->
         <div class="modal-overlay" id="projects-modal">
             <div class="modal-container">
-                <!-- Header del modal -->
+
                 <div class="top-0 bg-mantle border-b border-surface0 p-6 z-10">
                     <div class="flex items-center justify-between">
                         <h2 class="text-2xl font-bold cat-mauve">All Projects</h2>
@@ -417,13 +411,12 @@
                     <p class="text-subtext mt-2">A comprehensive list of my open source projects and contributions</p>
                 </div>
 
-                <!-- Contenido del modal -->
+
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="modal-projects-container">
-                        <!-- Los proyectos se insertarán aquí dinámicamente -->
+
                     </div>
 
-                    <!-- Stats o info adicional -->
                     <div class="mt-10 pt-6 border-t border-surface0">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                             <div class="p-4 rounded-lg bg-surface0/30">
@@ -449,12 +442,11 @@
             </div>
         </div>
 
-        <!-- Sección de Contact simplificada -->
+
         <section class="mb-12 md:mb-16">
             <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2">Connect With Me</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <!-- Email -->
                 <div class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300">
                     <div class="contact-icon cat-peach mb-3">
                         <i class="bi bi-envelope-fill text-3xl"></i>
@@ -499,7 +491,6 @@
 
             </div>
 
-            <!-- Mensaje adicional -->
             <div class="mt-8 text-center">
                 <p class="text-subtext text-sm md:text-base max-w-2xl mx-auto">
                     Feel free to reach out for collaborations, questions about my projects,
@@ -543,7 +534,6 @@
                 ]
             },
 
-            // Proyectos principales (mostrados en la página principal)
             mainProjects: [
                 {
                     name: "blueos",
@@ -651,7 +641,7 @@
             ]
         };
 
-        // Sistema de temas
+
         class ThemeManager {
             constructor() {
                 this.themes = {
@@ -671,22 +661,18 @@
             }
 
             applyTheme(themeName) {
-                // Remover todas las clases de tema
                 document.documentElement.classList.remove('theme-gruvbox', 'theme-solarized');
 
-                // Aplicar la nueva clase de tema
                 if (themeName !== 'default') {
                     document.documentElement.classList.add(`theme-${themeName}`);
                 }
 
-                // Actualizar variable CSS para theme-name
                 document.documentElement.style.setProperty('--theme-name', this.themes[themeName]);
 
-                // Guardar en localStorage
                 localStorage.setItem('portfolio-theme', themeName);
                 this.currentTheme = themeName;
 
-                // Actualizar UI
+
                 this.updateThemeUI();
             }
 
@@ -717,14 +703,13 @@
                         themeDropdown.classList.toggle('active');
                     });
 
-                    // Cerrar dropdown al hacer clic fuera
+
                     document.addEventListener('click', (e) => {
                         if (!themeToggle.contains(e.target) && !themeDropdown.contains(e.target)) {
                             themeDropdown.classList.remove('active');
                         }
                     });
 
-                    // Seleccionar tema
                     document.querySelectorAll('.theme-option').forEach(option => {
                         option.addEventListener('click', () => {
                             const theme = option.dataset.theme;
@@ -734,7 +719,7 @@
                     });
                 }
 
-                // Cerrar dropdown con Escape
+
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
                         themeDropdown.classList.remove('active');
@@ -822,7 +807,7 @@
             const container = document.getElementById('modal-projects-container');
             container.innerHTML = '';
 
-            // Combinar proyectos principales y adicionales para el modal
+
             const allProjects = [...portfolioData.mainProjects, ...portfolioData.additionalProjects];
 
             allProjects.forEach(project => {
@@ -839,7 +824,6 @@
                 title.className = `text-lg font-bold ${project.color} truncate`;
                 title.innerHTML = `~/${project.name}`;
 
-                // Badge de estado si existe
                 if (project.status) {
                     const statusBadge = document.createElement('span');
                     statusBadge.className = `text-[10px] px-2 py-1 rounded-full ml-2 ${
@@ -884,7 +868,7 @@
             });
         }
 
-        // Función para copiar al portapapeles
+
         function copyToClipboard(text, button) {
             navigator.clipboard.writeText(text).then(() => {
                 const card = button.closest('.card');
@@ -923,21 +907,19 @@
             });
         }
 
-        // Funciones para el modal
         function openModal() {
             const modal = document.getElementById('projects-modal');
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('projects-modal');
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restaurar scroll del body
+            document.body.style.overflow = 'auto';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar el gestor de temas
             const themeManager = new ThemeManager();
 
             document.getElementById('name').textContent = portfolioData.name;
@@ -947,19 +929,17 @@
             renderProjects();
             renderModalProjects();
 
-            // Configurar botón View More
             const viewMoreBtn = document.getElementById('view-more-btn');
             if (viewMoreBtn) {
                 viewMoreBtn.addEventListener('click', openModal);
             }
 
-            // Configurar botón de cerrar modal
             const closeModalBtn = document.getElementById('close-modal');
             if (closeModalBtn) {
                 closeModalBtn.addEventListener('click', closeModal);
             }
 
-            // Cerrar modal al hacer clic fuera del contenido
+
             const modalOverlay = document.getElementById('projects-modal');
             if (modalOverlay) {
                 modalOverlay.addEventListener('click', function(e) {
@@ -969,14 +949,13 @@
                 });
             }
 
-            // Cerrar modal con tecla Escape
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
                     closeModal();
                 }
             });
 
-            // Mejorar la experiencia táctil en móviles
+
             if ('ontouchstart' in window) {
                 const projectCards = document.querySelectorAll('.card');
                 projectCards.forEach(card => {
