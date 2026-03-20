@@ -1,979 +1,347 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NopAngel Portfolio</title>
+    
+    <title>NopAngel | Systems & Open Source Developer</title>
+    <meta name="description" content="14yo Software Developer focused on low-level systems, kernel dev (BlueOS), and Unix philosophy.">
+    <meta property="og:title" content="NopAngel Portfolio">
+    <meta property="og:description" content="Exploring the depths of C, Rust, and Kernel development.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#cba6f7">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" integrity="sha512-t7Few9xlddEmgd3oKZQahkNI4dS6l80+eGEzFQiqtyVYdvcSG2D3Iub77R20BdotfRPA9caaRkg1tyaJiPmO0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { mono: ['JetBrains Mono', 'monospace'] },
+                    colors: {
+                        main: {
+                            base: 'var(--base)', mantle: 'var(--mantle)', crust: 'var(--crust)',
+                            text: 'var(--text)', subtext: 'var(--subtext)', mauve: 'var(--mauve)',
+                            blue: 'var(--blue)', green: 'var(--green)', peach: 'var(--peach)',
+                            sapphire: 'var(--sapphire)', surface0: 'var(--surface0)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         :root {
-
-            --base: #1e1e2e;
-            --mantle: #181825;
-            --crust: #11111b;
-            --text: #cdd6f4;
-            --subtext: #bac2de;
-            --mauve: #cba6f7;
-            --blue: #89b4fa;
-            --green: #a6e3a1;
-            --peach: #fab387;
-            --sapphire: #74c7ec;
-            --surface0: #313244;
-            --theme-name: 'Catppuccin';
+            --base: #1e1e2e; --mantle: #181825; --crust: #11111b;
+            --text: #cdd6f4; --subtext: #bac2de; --mauve: #cba6f7;
+            --blue: #89b4fa; --green: #a6e3a1; --peach: #fab387;
+            --sapphire: #74c7ec; --surface0: #313244;
         }
-
         .theme-gruvbox {
-            --base: #282828;
-            --mantle: #1d2021;
-            --crust: #141617;
-            --text: #ebdbb2;
-            --subtext: #d5c4a1;
-            --mauve: #b16286;
-            --blue: #458588;
-            --green: #98971a;
-            --peach: #d79921;
-            --sapphire: #83a598;
-            --surface0: #3c3836;
-            --theme-name: 'Gruvbox';
+            --base: #282828; --mantle: #1d2021; --crust: #141617;
+            --text: #ebdbb2; --subtext: #d5c4a1; --mauve: #b16286;
+            --blue: #458588; --green: #98971a; --peach: #d79921;
+            --sapphire: #83a598; --surface0: #3c3836;
         }
-
         .theme-solarized {
-            --base: #002b36;
-            --mantle: #073642;
-            --crust: #00212b;
-            --text: #839496;
-            --subtext: #93a1a1;
-            --mauve: #6c71c4;
-            --blue: #268bd2;
-            --green: #859900;
-            --peach: #cb4b16;
-            --sapphire: #2aa198;
-            --surface0: #586e75;
-            --theme-name: 'Solarized';
+            --base: #002b36; --mantle: #073642; --crust: #00212b;
+            --text: #839496; --subtext: #93a1a1; --mauve: #6c71c4;
+            --blue: #268bd2; --green: #859900; --peach: #cb4b16;
+            --sapphire: #2aa198; --surface0: #586e75;
         }
-
 
         body {
             background-color: var(--base);
             color: var(--text);
-            font-family: 'JetBrains Mono', 'Geist Mono', monospace;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: 'JetBrains Mono', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .card {
-            background-color: var(--mantle);
+        .card-hover {
+            transition: all 0.2s ease;
             border: 1px solid var(--surface0);
-            transition: all 0.3s ease;
         }
-        .card:hover {
-            border-color: var(--mauve);
-            transform: translateY(-4px);
-        }
-
-
-        .cat-mauve { color: var(--mauve); }
-        .cat-blue { color: var(--blue); }
-        .cat-green { color: var(--green); }
-        .cat-peach { color: var(--peach); }
-        .cat-sapphire { color: var(--sapphire); }
-        .bg-mauve-soft { background-color: rgba(var(--mauve-rgb), 0.1); }
-
-        .skill-icon {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            margin-right: 6px;
-            vertical-align: middle;
-        }
-        .icon-c { background-color: var(--blue); }
-        .icon-cpp { background-color: var(--sapphire); }
-        .icon-go { background-color: var(--blue); }
-        .icon-js { background-color: var(--peach); }
-        .icon-py { background-color: var(--blue); }
-        .icon-tools { background-color: var(--mauve); }
-        .icon-rust { background-color: var(--peach); }
-        .icon-java { background-color: var(--mauve); }
-        .icon-csharp { background-color: var(--green); }
-        .icon-cpu { background-color: var(--mauve); }
-        .icon-terminal { background-color: var(--green); }
-        .icon-container { background-color: var(--blue); }
-
-
-        .theme-selector {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .theme-btn {
-            background-color: var(--mantle);
-            border: 1px solid var(--surface0);
-            color: var(--text);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: inherit;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .theme-btn:hover {
-            background-color: var(--surface0);
-            border-color: var(--mauve);
-        }
-
-        .theme-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 8px;
-            background-color: var(--mantle);
-            border: 1px solid var(--surface0);
-            border-radius: 8px;
-            padding: 8px;
-            min-width: 180px;
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .theme-dropdown.active {
-            display: flex;
-        }
-
-        .theme-option {
-            padding: 10px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background-color 0.2s ease;
-        }
-
-        .theme-option:hover {
-            background-color: var(--surface0);
-        }
-
-        .theme-option.active {
-            background-color: var(--surface0);
-            border-left: 3px solid var(--mauve);
-        }
-
-        .theme-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 2px solid var(--surface0);
-        }
-
-        .theme-catppuccin .theme-color {
-            background: linear-gradient(135deg, #cba6f7 25%, #89b4fa 50%, #a6e3a1 75%, #fab387 100%);
-        }
-
-        .theme-gruvbox-option .theme-color {
-            background: linear-gradient(135deg, #b16286 25%, #458588 50%, #98971a 75%, #d79921 100%);
-        }
-
-        .theme-solarized-option .theme-color {
-            background: linear-gradient(135deg, #6c71c4 25%, #268bd2 50%, #859900 75%, #cb4b16 100%);
-        }
-
-
-        @media (max-width: 640px) {
-            .mobile-stack {
-                flex-direction: column !important;
-            }
-            .mobile-text-center {
-                text-align: center;
-            }
-            .mobile-mb-4 {
-                margin-bottom: 1rem;
-            }
-            .mobile-full-width {
-                width: 100% !important;
-            }
-
-            .theme-selector {
-                top: 10px;
-                right: 10px;
-            }
-
-            .theme-btn span {
-                display: none;
-            }
-
-            .theme-btn {
-                padding: 8px;
-                width: 40px;
-                height: 40px;
-                justify-content: center;
-            }
-
-            .theme-dropdown {
-                min-width: 160px;
-                right: -10px;
-            }
-        }
-
-        .contact-icon {
-            transition: all 0.3s ease;
-        }
-        .contact-icon:hover {
-            transform: scale(1.1);
-        }
-
-        @keyframes copyFlash {
-            0% { background-color: transparent; }
-            50% { background-color: rgba(var(--mauve-rgb), 0.2); }
-            100% { background-color: transparent; }
-        }
-
-        .copy-flash {
-            animation: copyFlash 0.5s ease;
-        }
-
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(var(--crust-rgb), 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-container {
-            background-color: var(--mantle);
-            border: 1px solid var(--surface0);
-            border-radius: 12px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 85vh;
-            overflow-y: auto;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            margin: 1rem;
-        }
-
-        .modal-overlay.active .modal-container {
-            transform: translateY(0);
-        }
-
-        /* Scrollbar personalizado */
-        .modal-container::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .modal-container::-webkit-scrollbar-track {
-            background: var(--surface0);
-            border-radius: 4px;
-        }
-
-        .modal-container::-webkit-scrollbar-thumb {
-            background: var(--mauve);
-            border-radius: 4px;
-        }
-
-        .modal-container::-webkit-scrollbar-thumb:hover {
-            background: var(--mauve);
-            opacity: 0.8;
-        }
-
-
-        .view-more-btn {
-            background-color: var(--surface0);
-            border: 1px solid var(--surface0);
-            color: var(--text);
-            transition: all 0.3s ease;
-        }
-
-        .view-more-btn:hover {
-            background-color: var(--mauve);
-            color: var(--crust);
+        .card-hover:hover {
             border-color: var(--mauve);
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.5);
         }
-
-
-        .border-surface0 {
-            border-color: var(--surface0) !important;
+        .modal-blur {
+            backdrop-filter: blur(8px);
+            background-color: rgba(17, 17, 27, 0.8);
         }
-
-        .theme-transition {
-            transition: background-color 0.3s ease,
-                        color 0.3s ease,
-                        border-color 0.3s ease,
-                        transform 0.3s ease;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--base); }
+        ::-webkit-scrollbar-thumb { background: var(--surface0); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--mauve); }
     </style>
 </head>
-<body class="theme-transition">
 
-    <div class="theme-selector">
-        <button class="theme-btn" id="theme-toggle">
-            <i class="bi bi-palette"></i>
-            <span id="current-theme">Catppuccin</span>
-            <i class="bi bi-chevron-down"></i>
-        </button>
-        <div class="theme-dropdown" id="theme-dropdown">
-            <div class="theme-option theme-catppuccin active" data-theme="default">
-                <div class="theme-color"></div>
-                <div>
-                    <div class="font-medium">Catppuccin</div>
-                    <div class="text-xs text-subtext">Modern & Smooth</div>
-                </div>
+<body class="font-mono selection:bg-main-mauve/30">
+
+    <div class="fixed top-6 right-6 z-50 flex gap-2">
+        <div class="relative group">
+            <button id="lang-toggle" class="bg-main-mantle border border-main-surface0 p-3 rounded-xl flex items-center gap-2 hover:border-main-blue transition-all group">
+                <i class="bi bi-translate text-main-blue"></i>
+                <span id="current-lang-name" class="hidden md:inline text-sm uppercase">ES</span>
+            </button>
+            <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-main-mantle border border-main-surface0 rounded-xl p-2 shadow-2xl">
+                <button onclick="setLanguage('es')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm">Español</button>
+                <button onclick="setLanguage('en')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm">English</button>
+                <button onclick="setLanguage('fr')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm">Français</button>
             </div>
-            <div class="theme-option theme-gruvbox-option" data-theme="gruvbox">
-                <div class="theme-color"></div>
-                <div>
-                    <div class="font-medium">Gruvbox</div>
-                    <div class="text-xs text-subtext">Retro & Cozy</div>
-                </div>
-            </div>
-            <div class="theme-option theme-solarized-option" data-theme="solarized">
-                <div class="theme-color"></div>
-                <div>
-                    <div class="font-medium">Solarized</div>
-                    <div class="text-xs text-subtext">Professional & Clean</div>
-                </div>
+        </div>
+
+        <div class="relative group">
+            <button id="theme-toggle" class="bg-main-mantle border border-main-surface0 p-3 rounded-xl flex items-center gap-2 hover:border-main-mauve transition-all group">
+                <i class="bi bi-palette text-main-mauve"></i>
+                <span id="current-theme-name" class="hidden md:inline text-sm">Catppuccin</span>
+            </button>
+            <div id="theme-menu" class="hidden absolute right-0 mt-2 w-48 bg-main-mantle border border-main-surface0 rounded-xl p-2 shadow-2xl">
+                <button onclick="setTheme('default')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-[#cba6f7]"></span> Catppuccin
+                </button>
+                <button onclick="setTheme('gruvbox')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-[#b16286]"></span> Gruvbox
+                </button>
+                <button onclick="setTheme('solarized')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-[#6c71c4]"></span> Solarized
+                </button>
             </div>
         </div>
     </div>
 
-    <div class="p-4 md:p-8 max-w-5xl mx-auto">
-        <!-- Header -->
-        <header class="mb-8 md:mb-16 mt-16 md:mt-20 flex flex-col md:flex-row mobile-stack items-center md:items-start gap-6 md:gap-0">
-            <section class="order-2 md:order-1 w-full md:w-2/3 mobile-text-center md:text-left">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 cat-mauve" id="name">NopAngel</h1>
-                <p class="text-lg sm:text-xl md:text-xl cat-blue mb-4" id="title">Software Developer | Indie & Open Source</p>
-                <p class="text-subtext text-sm md:text-base max-w-2xl leading-relaxed" id="description">Passionate about low-level systems development, productivity tools, and Unix philosophy.</p>
-            </section>
-            <section class="order-1 md:order-2 w-full md:w-1/3 flex justify-center md:justify-end mobile-mb-4">
-                <img src="https://avatars.githubusercontent.com/u/155915830?v=4"
-                     class="rounded-full w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48"
-                     alt="NopAngel AVATAR GitHub" />
-            </section>
+    <main class="max-w-5xl mx-auto px-6 py-20">
+        
+        <header class="flex flex-col md:flex-row items-center gap-10 mb-24">
+            <div class="flex-1 text-center md:text-left">
+                <h1 class="text-5xl md:text-7xl font-bold text-main-mauve mb-4">NopAngel</h1>
+                <p id="hero-tagline" class="text-xl text-main-blue mb-6 font-bold tracking-tight"></p>
+                <p id="hero-desc" class="text-main-subtext leading-relaxed max-w-xl"></p>
+            </div>
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-main-mauve to-main-blue rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                <img src="https://avatars.githubusercontent.com/u/155915830?v=4" 
+                     alt="Avatar" class="relative rounded-full w-44 h-44 border-2 border-main-surface0 object-cover">
+            </div>
         </header>
 
-
-        <!-- Skills -->
-        <section class="mb-12 md:mb-16">
-            <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2">Technical Arsenal</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="skills-container">
-
-            </div>
+        <section class="mb-24">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                <i class="bi bi-cpu text-main-mauve"></i> <span id="title-skills">Technical Arsenal</span>
+            </h2>
+            <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
         </section>
 
-        <!-- Projects -->
-        <section class="mb-12 md:mb-16">
-            <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2">Forge & Labs</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6" id="projects-container">
-
+        <section class="mb-24">
+            <div class="flex justify-between items-end mb-8">
+                <h2 class="text-2xl font-bold flex items-center gap-3">
+                    <i class="bi bi-hammer text-main-green"></i> <span id="title-projects">Forge & Labs</span>
+                </h2>
+                <button id="btn-archive" onclick="openModal()" class="text-main-mauve hover:underline text-sm font-bold"></button>
             </div>
-
-
-            <div class="mt-8 text-center">
-                <button id="view-more-btn" class="view-more-btn px-6 py-3 rounded-lg font-medium flex items-center gap-2 mx-auto">
-                    <i class="bi bi-grid-3x3-gap"></i>
-                    View More Projects
-                </button>
-            </div>
+            <div id="main-projects" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
         </section>
 
-        <div class="modal-overlay" id="projects-modal">
-            <div class="modal-container">
-
-                <div class="top-0 bg-mantle border-b border-surface0 p-6 z-10">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-2xl font-bold cat-mauve">All Projects</h2>
-                        <button id="close-modal" class="text-2xl text-subtext hover:text-text transition-colors">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
-                    </div>
-                    <p class="text-subtext mt-2">A comprehensive list of my open source projects and contributions</p>
-                </div>
-
-
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="modal-projects-container">
-
-                    </div>
-
-                    <div class="mt-10 pt-6 border-t border-surface0">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                            <div class="p-4 rounded-lg bg-surface0/30">
-                                <div class="text-2xl font-bold cat-blue">15+</div>
-                                <div class="text-xs uppercase tracking-widest text-subtext mt-1">Projects</div>
-                            </div>
-                            <div class="p-4 rounded-lg bg-surface0/30">
-                                <div class="text-2xl font-bold cat-green">8</div>
-                                <div class="text-xs uppercase tracking-widest text-subtext mt-1">Languages</div>
-                            </div>
-
-                            <div class="p-4 rounded-lg bg-surface0/30">
-                                <div class="text-2xl font-bold cat-mauve">24/7</div>
-                                <div class="text-xs uppercase tracking-widest text-subtext mt-1">Active</div>
-                            </div>
-                        </div>
-
-                        <div class="text-center mt-8 text-subtext text-sm">
-                            <p>For the most up-to-date projects and contributions, visit my <a href="https://github.com/NopAngel" class="cat-blue hover:underline">GitHub profile</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <section class="mb-12 md:mb-16">
-            <h2 class="text-xl sm:text-2xl md:text-2xl font-bold mb-6 md:mb-8 border-b border-surface0 pb-2">Connect With Me</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <div class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300">
-                    <div class="contact-icon cat-peach mb-3">
-                        <i class="bi bi-envelope-fill text-3xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Email</h3>
-                    <p class="text-subtext text-sm mb-4 font-mono">angelgabrielnieto@outlook.com</p>
-                    <button onclick="copyToClipboard('angelgabrielnieto@outlook.com', this)"
-                            class="text-xs px-4 py-2 rounded-lg bg-surface0 hover:bg-peach hover:text-crust transition-colors w-full">
-                        Copy Email
-                    </button>
-                </div>
-
-                <!-- GitHub -->
-                <a href="https://github.com/NopAngel"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300 no-underline block">
-                    <div class="contact-icon cat-mauve mb-3">
-                        <i class="bi bi-github text-3xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">GitHub</h3>
-                    <p class="text-subtext text-sm mb-4">@NopAngel</p>
-                    <div class="text-xs px-4 py-2 rounded-lg bg-surface0 text-subtext">
-                        View Profile
-                    </div>
+        <section class="bg-main-mantle border border-main-surface0 rounded-3xl p-10 text-center">
+            <h2 id="contact-title" class="text-3xl font-bold mb-4"></h2>
+            <p id="contact-desc" class="text-main-subtext mb-8"></p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="mailto:angelgabrielnieto@outlook.com" class="bg-main-surface0 px-6 py-3 rounded-xl hover:bg-main-peach hover:text-main-crust transition-all flex items-center gap-2">
+                    <i class="bi bi-envelope-at"></i> Email
                 </a>
-
-                <!-- LinkedIn -->
-                <a href="https://linkedin.com/in/angel-nieto"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="card p-5 rounded-xl text-center hover:bg-mantle/90 transition-all duration-300 no-underline block">
-                    <div class="contact-icon cat-blue mb-3">
-                        <i class="bi bi-linkedin text-3xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">LinkedIn</h3>
-                    <p class="text-subtext text-sm mb-4">NopAngel</p>
-                    <div class="text-xs px-4 py-2 rounded-lg bg-surface0 text-subtext">
-                        Connect
-                    </div>
+                <a href="https://github.com/NopAngel" target="_blank" class="bg-main-surface0 px-6 py-3 rounded-xl hover:bg-main-mauve hover:text-main-crust transition-all flex items-center gap-2">
+                    <i class="bi bi-github"></i> GitHub
                 </a>
-
-            </div>
-
-            <div class="mt-8 text-center">
-                <p class="text-subtext text-sm md:text-base max-w-2xl mx-auto">
-                    Feel free to reach out for collaborations, questions about my projects,
-                    or just to chat about tech and open source!
-                </p>
-                <p class="text-xs text-subtext mt-4">
-                    <i class="bi bi-clock mr-1"></i> Response time: Usually within 24-48 hours
-                </p>
             </div>
         </section>
 
-        <footer class="mt-12 md:mt-20 pt-6 md:pt-8 border-t border-surface0 text-center text-subtext text-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-xs sm:text-sm">@Copyright 2025 NopAngel</p>
-            <a href="https://github.com/NopAngel/" class="bi bi-github text-lg sm:text-xl hover:text-mauve transition-colors"></a>
+        <footer id="footer-text" class="mt-20 py-8 border-t border-main-surface0 text-center text-main-subtext text-xs uppercase tracking-widest">
         </footer>
+    </main>
+
+    <div id="modal" class="hidden fixed inset-0 z-[100] modal-blur flex items-center justify-center p-4">
+        <div class="bg-main-base border border-main-surface0 w-full max-w-4xl max-h-[80vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-main-surface0 flex justify-between items-center bg-main-mantle">
+                <h3 id="modal-title" class="text-xl font-bold text-main-mauve"></h3>
+                <button onclick="closeModal()" class="text-2xl hover:text-main-mauve">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
     </div>
 
     <script>
-
-        const portfolioData = {
-            name: "NopAngel",
-            title: "Software Developer | Indie & Open Source",
-            description: "Passionate about low-level systems development, productivity tools, and Unix philosophy.",
-
-            languages: {
-                "Expert": [
-                    { name: "C", icon: "c", color: "cat-blue" },
-                    { name: "C++", icon: "cpp", color: "cat-sapphire" },
-                    { name: "Go", icon: "go", color: "cat-blue" },
-                    { name: "JS/TS", icon: "js", color: "cat-peach" },
-                    { name: "Python", icon: "py", color: "cat-blue" },
-                    { name: "Make", icon: "tools", color: "cat-mauve" }
-                ],
-                "Intermediate/Learning": [
-                    { name: "Rust", icon: "rust", color: "cat-peach" },
-                    { name: "Java", icon: "java", color: "cat-mauve" },
-                    { name: "C#", icon: "csharp", color: "cat-green" },
-                    { name: "ASM", icon: "cpu", color: "cat-mauve" },
-                    { name: "Bash/Shell", icon: "terminal", color: "cat-green" },
-                    { name: "Docker", icon: "container", color: "cat-blue" }
-                ]
+        const translations = {
+            es: {
+                tagline: "Software Developer | Indie & Open Source",
+                description: "Apasionado por el desarrollo de sistemas de bajo nivel, herramientas de CLI y la filosofía Unix. Actualmente construyendo BlueOS.",
+                skillsTitle: "Arsenal Técnico",
+                projectsTitle: "Forja y Laboratorio",
+                archiveBtn: "Ver todo (15+)",
+                contactTitle: "¿Hablamos de código?",
+                contactDesc: "Siempre abierto a colaborar en proyectos C/Rust o hablar sobre desarrollo de kernels.",
+                footer: "© 2026 NopAngel // Construido con precisión",
+                modalTitle: "Archivo Completo",
+                levels: { expert: "Experto", learning: "Aprendiendo" }
             },
+            en: {
+                tagline: "Software Developer | Indie & Open Source",
+                description: "Passionate about low-level systems, CLI tools, and Unix philosophy. Currently building BlueOS.",
+                skillsTitle: "Technical Arsenal",
+                projectsTitle: "Forge & Labs",
+                archiveBtn: "View all (15+)",
+                contactTitle: "Let's talk code?",
+                contactDesc: "Always open to collaborate on C/Rust projects or discuss kernel development.",
+                footer: "© 2026 NopAngel // Built with precision",
+                modalTitle: "Full Archive",
+                levels: { expert: "Expert", learning: "Learning" }
+            },
+            fr: {
+                tagline: "Développeur Logiciel | Indie & Open Source",
+                description: "Passionné par les systèmes de bas niveau, les outils CLI et la philosophie Unix. En train de construire BlueOS.",
+                skillsTitle: "Arsenal Technique",
+                projectsTitle: "Forge et Laboratoire",
+                archiveBtn: "Voir tout (15+)",
+                contactTitle: "Parlons de code ?",
+                contactDesc: "Toujours prêt à collaborer sur des projets C/Rust ou à discuter de dev kernel.",
+                footer: "© 2026 NopAngel // Construit avec précision",
+                modalTitle: "Archives Complètes",
+                levels: { expert: "Expert", learning: "Apprentissage" }
+            }
+        };
 
-            mainProjects: [
-                {
-                    name: "blueos",
-                    description: "An operating system developed from scratch for x86 architectures.",
-                    tags: ["C", "C++", "ASM", "Linker Script"],
-                    color: "cat-blue",
-                    href: "https://github.com/NopAngel/blueos"
-                },
-                {
-                    name: "sushi",
-                    description: "`core-utils` alternative",
-                    tags: ["C", "Make"],
-                    color: "cat-green",
-                    href: "https://github.com/NopAngel/sushi"
-                },
-                {
-                    name: "dragon",
-                    description: "A modern and fast alternative to Make focused on ease of use.",
-                    tags: ["C", "C++"],
-                    color: "cat-mauve",
-                    href: "https://github.com/NopAngel/dragon"
-                },
-                {
-                    name: "emojix",
-                    description: "Interactive web tool for searching and managing emojis.",
-                    tags: ["Svelte", "TailwindCSS"],
-                    color: "cat-peach",
-                    href: "https://github.com/NopAngel/emojix"
-                }
+        const data = {
+            skills: {
+                expert: ["C", "C++", "Go", "JS/TS", "Python", "Makefile", "Lua", "Svelte.js", "Astro.js", "React.js", "Next.js"],
+                learning: ["Rust", "Assembly (x86 and i386)", "Java", "Docker", "Bash", "MySQL", "PostgreSQL", "MongoDB"]
+            },
+            projects: [
+                { name: "blueos", desc: "Custom i386/riscv Operating System kernel.", tags: ["C", "ASM"], color: "blue", link: "https://github.com/NopAngel/blueos" },
+                { name: "sushi", desc: "Modern core-utils alternative.", tags: ["C", "Make"], color: "green", link: "https://github.com/NopAngel/sushi" },
+                { name: "dragon", desc: "Fast build system alternative to Make.", tags: ["C++"], color: "mauve", link: "https://github.com/NopAngel/dragon" },
+                { name: "flowleaf", desc: "HTML superset compiler.", tags: ["Go"], color: "peach", link: "https://github.com/NopAngel/flowleaf" }
             ],
-
-            additionalProjects: [
-                {
-                    name: "rmk",
-                    description: "`rm` alternative",
-                    tags: ["Rust"],
-                    color: "cat-blue",
-                    href: "https://github.com/NopAngel/rmk",
-                    status: "active"
-                },
-                {
-                    name: "printk",
-                    description: "`echo`/`print` with icons",
-                    tags: ["Rust", "Terminal"],
-                    color: "cat-peach",
-                    href: "https://github.com/NopAngel/printk",
-                    status: "active"
-                },
-                {
-                    name: "axisql",
-                    description: "Database based in C",
-                    tags: ["C", "Terminal"],
-                    color: "cat-blue",
-                    href: "https://github.com/NopAngel/axisql",
-                    status: "completed"
-                },
-                {
-                    name: "ffva",
-                    description: "app for the view assembly of an application",
-                    tags: ["C", "M4", "Make"],
-                    color: "cat-green",
-                    href: "https://github.com/NopAngel/ffva",
-                    status: "wip"
-                },
-                {
-                    name: "omg",
-                    description: "OMG - img file format.",
-                    tags: ["Go"],
-                    color: "cat-blue",
-                    href: "https://github.com/NopAngel/omg",
-                    status: "active"
-                },
-                {
-                    name: "fired",
-                    description: "Fast terminal file manager",
-                    tags: ["C++"],
-                    color: "cat-sapphire",
-                    href: "https://github.com/NopAngel/fired",
-                    status: "completed"
-                },
-                {
-                    name: "flowleaf",
-                    description: "FlowLeaf is a superset of HTML that compiles to produce clean HTML, CSS, and JS output.",
-                    tags: ["Go"],
-                    color: "cat-mauve",
-                    href: "https://github.com/NopAngel/flowleaf",
-                    status: "active"
-                },
-                {
-                    name: "litecode",
-                    description: "The fastest code editor.",
-                    tags: ["Python", "Distributed"],
-                    color: "cat-blue",
-                    href: "https://github.com/NopAngel/litecode",
-                    status: "wip"
-                },
-                {
-                    name: "pool",
-                    description: "Script to optimize Linux (any distribution)",
-                    tags: ["Shell"],
-                    color: "cat-peach",
-                    href: "https://github.com/NopAngel/pool",
-                    status: "active"
-                }
+            archive: [
+                { name: "rmk", desc: "Safe 'rm' alternative in Rust.", status: "Active" },
+                { name: "axisql", desc: "C-based lightweight SQL engine.", status: "Completed" },
+                { name: "fired", desc: "TUI File Manager for power users.", status: "WIP" }
             ]
         };
 
+        let currentLang = localStorage.getItem('lang') || 'es';
 
-        class ThemeManager {
-            constructor() {
-                this.themes = {
-                    'default': 'Catppuccin',
-                    'gruvbox': 'Gruvbox',
-                    'solarized': 'Solarized'
-                };
-
-                this.currentTheme = localStorage.getItem('portfolio-theme') || 'default';
-                this.init();
-            }
-
-            init() {
-                this.applyTheme(this.currentTheme);
-                this.setupEventListeners();
-                this.updateThemeUI();
-            }
-
-            applyTheme(themeName) {
-                document.documentElement.classList.remove('theme-gruvbox', 'theme-solarized');
-
-                if (themeName !== 'default') {
-                    document.documentElement.classList.add(`theme-${themeName}`);
-                }
-
-                document.documentElement.style.setProperty('--theme-name', this.themes[themeName]);
-
-                localStorage.setItem('portfolio-theme', themeName);
-                this.currentTheme = themeName;
-
-
-                this.updateThemeUI();
-            }
-
-            updateThemeUI() {
-                const themeName = this.themes[this.currentTheme];
-                const currentThemeEl = document.getElementById('current-theme');
-                if (currentThemeEl) {
-                    currentThemeEl.textContent = themeName;
-                }
-
-                // Actualizar opciones activas
-                document.querySelectorAll('.theme-option').forEach(option => {
-                    option.classList.remove('active');
-                    if (option.dataset.theme === this.currentTheme) {
-                        option.classList.add('active');
-                    }
-                });
-            }
-
-            setupEventListeners() {
-                // Toggle dropdown
-                const themeToggle = document.getElementById('theme-toggle');
-                const themeDropdown = document.getElementById('theme-dropdown');
-
-                if (themeToggle && themeDropdown) {
-                    themeToggle.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        themeDropdown.classList.toggle('active');
-                    });
-
-
-                    document.addEventListener('click', (e) => {
-                        if (!themeToggle.contains(e.target) && !themeDropdown.contains(e.target)) {
-                            themeDropdown.classList.remove('active');
-                        }
-                    });
-
-                    document.querySelectorAll('.theme-option').forEach(option => {
-                        option.addEventListener('click', () => {
-                            const theme = option.dataset.theme;
-                            this.applyTheme(theme);
-                            themeDropdown.classList.remove('active');
-                        });
-                    });
-                }
-
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        themeDropdown.classList.remove('active');
-                    }
-                });
-            }
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            updateUI();
+            document.getElementById('lang-menu').classList.add('hidden');
         }
 
-        function renderSkills() {
-            const container = document.getElementById('skills-container');
-            container.innerHTML = '';
-
-            for (const [level, skills] of Object.entries(portfolioData.languages)) {
-                const skillGroup = document.createElement('div');
-
-                const title = document.createElement('h3');
-                title.className = 'text-xs sm:text-sm uppercase tracking-widest text-subtext mb-3 md:mb-4';
-                title.textContent = level;
-
-                const skillsContainer = document.createElement('div');
-                skillsContainer.className = 'flex flex-wrap gap-2 md:gap-3';
-
-                skills.forEach(skill => {
-                    const skillElement = document.createElement('span');
-                    skillElement.className = `px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm card ${skill.color}`;
-                    skillElement.textContent = skill.name;
-                    skillsContainer.appendChild(skillElement);
-                });
-
-                skillGroup.appendChild(title);
-                skillGroup.appendChild(skillsContainer);
-                container.appendChild(skillGroup);
-            }
+        function setTheme(theme) {
+            document.body.className = theme === 'default' ? '' : `theme-${theme}`;
+            const themeName = theme.charAt(0).toUpperCase() + theme.slice(1);
+            document.getElementById('current-theme-name').innerText = themeName;
+            localStorage.setItem('theme', theme);
+            document.getElementById('theme-menu').classList.add('hidden');
         }
 
+        function updateUI() {
+            const t = translations[currentLang];
+            document.getElementById('current-lang-name').innerText = currentLang.toUpperCase();
 
-        function renderProjects() {
-            const container = document.getElementById('projects-container');
-            container.innerHTML = '';
+            document.getElementById('hero-tagline').innerText = t.tagline;
+            document.getElementById('hero-desc').innerText = t.description;
+            document.getElementById('title-skills').innerText = t.skillsTitle;
+            document.getElementById('title-projects').innerText = t.projectsTitle;
+            document.getElementById('btn-archive').innerText = t.archiveBtn;
+            document.getElementById('contact-title').innerText = t.contactTitle;
+            document.getElementById('contact-desc').innerText = t.contactDesc;
+            document.getElementById('footer-text').innerText = t.footer;
+            document.getElementById('modal-title').innerText = t.modalTitle;
 
-            portfolioData.mainProjects.forEach(project => {
-                const projectCard = document.createElement('div');
-                projectCard.className = 'card p-4 md:p-6 rounded-xl h-full';
+            renderDynamicContent();
+        }
 
+        function renderDynamicContent() {
+            const t = translations[currentLang];
+            
+            // Skills
+            const skillGrid = document.getElementById('skills-grid');
+            skillGrid.innerHTML = '';
+            for (const [level, items] of Object.entries(data.skills)) {
+                skillGrid.innerHTML += `
+                    <div>
+                        <h4 class="text-xs uppercase tracking-tighter text-main-subtext mb-4">${t.levels[level]}</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${items.map(s => `<span class="bg-main-mantle border border-main-surface0 px-3 py-1 rounded-lg text-sm hover:border-main-mauve transition-colors">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
 
-                const header = document.createElement('section');
-                header.className = 'flex items-center justify-between mb-2';
-
-                const title = document.createElement('h3');
-                title.className = `text-lg md:text-xl font-bold ${project.color} truncate`;
-                title.innerHTML = `~/${project.name}`;
-
-                const githubLink = document.createElement('a');
-                githubLink.href = project.href;
-                githubLink.target = '_blank';
-                githubLink.rel = 'noopener noreferrer';
-                githubLink.innerHTML = '<i class="bi bi-github text-lg md:text-xl hover:text-mauve transition-colors"></i>';
-
-                header.appendChild(title);
-                header.appendChild(githubLink);
-
-                const description = document.createElement('p');
-                description.className = 'text-subtext text-xs md:text-sm mb-3 md:mb-4 line-clamp-3';
-                description.textContent = project.description;
-
-                const tagsContainer = document.createElement('div');
-                tagsContainer.className = 'flex flex-wrap gap-1 md:gap-2';
-
-                project.tags.forEach(tag => {
-                    const tagElement = document.createElement('span');
-                    tagElement.className = 'text-[9px] md:text-[10px] uppercase px-2 py-1 bg-surface0 rounded text-text';
-                    tagElement.textContent = tag;
-                    tagsContainer.appendChild(tagElement);
-                });
-
-                projectCard.appendChild(header);
-                projectCard.appendChild(description);
-                projectCard.appendChild(tagsContainer);
-
-                container.appendChild(projectCard);
+            // Projects
+            const projGrid = document.getElementById('main-projects');
+            projGrid.innerHTML = '';
+            data.projects.forEach(p => {
+                projGrid.innerHTML += `
+                    <div class="card-hover bg-main-mantle p-6 rounded-2xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-main-${p.color}">~/${p.name}</h3>
+                            <a href="${p.link}" target="_blank" class="text-main-subtext hover:text-main-mauve"><i class="bi bi-github text-xl"></i></a>
+                        </div>
+                        <p class="text-sm text-main-subtext mb-6">${p.desc}</p>
+                        <div class="flex gap-2">
+                            ${p.tags.map(t => `<span class="text-[10px] bg-main-surface0 px-2 py-0.5 rounded uppercase">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
             });
         }
 
-        function renderModalProjects() {
-            const container = document.getElementById('modal-projects-container');
-            container.innerHTML = '';
+        document.getElementById('theme-toggle').onclick = (e) => {
+            e.stopPropagation();
+            document.getElementById('theme-menu').classList.toggle('hidden');
+            document.getElementById('lang-menu').classList.add('hidden');
+        };
 
+        document.getElementById('lang-toggle').onclick = (e) => {
+            e.stopPropagation();
+            document.getElementById('lang-menu').classList.toggle('hidden');
+            document.getElementById('theme-menu').classList.add('hidden');
+        };
 
-            const allProjects = [...portfolioData.mainProjects, ...portfolioData.additionalProjects];
+        window.onclick = (e) => {
+            if(!e.target.closest('#theme-toggle')) document.getElementById('theme-menu').classList.add('hidden');
+            if(!e.target.closest('#lang-toggle')) document.getElementById('lang-menu').classList.add('hidden');
+            if(e.target.id === 'modal') closeModal();
+        };
 
-            allProjects.forEach(project => {
-                const projectCard = document.createElement('div');
-                projectCard.className = 'card p-5 rounded-xl h-full';
-
-                const header = document.createElement('section');
-                header.className = 'flex items-start justify-between mb-3';
-
-                const titleContainer = document.createElement('div');
-                titleContainer.className = 'flex-1';
-
-                const title = document.createElement('h3');
-                title.className = `text-lg font-bold ${project.color} truncate`;
-                title.innerHTML = `~/${project.name}`;
-
-                if (project.status) {
-                    const statusBadge = document.createElement('span');
-                    statusBadge.className = `text-[10px] px-2 py-1 rounded-full ml-2 ${
-                        project.status === 'active' ? 'bg-green/20 text-green' :
-                        project.status === 'wip' ? 'bg-peach/20 text-peach' :
-                        'bg-blue/20 text-blue'
-                    }`;
-                    statusBadge.textContent = project.status.toUpperCase();
-                    title.appendChild(statusBadge);
-                }
-
-                titleContainer.appendChild(title);
-                header.appendChild(titleContainer);
-
-                const githubLink = document.createElement('a');
-                githubLink.href = project.href;
-                githubLink.target = '_blank';
-                githubLink.rel = 'noopener noreferrer';
-                githubLink.className = 'ml-2';
-                githubLink.innerHTML = '<i class="bi bi-github text-lg hover:text-mauve transition-colors"></i>';
-                header.appendChild(githubLink);
-
-                const description = document.createElement('p');
-                description.className = 'text-subtext text-sm mb-4 line-clamp-3';
-                description.textContent = project.description;
-
-                const tagsContainer = document.createElement('div');
-                tagsContainer.className = 'flex flex-wrap gap-2';
-
-                project.tags.forEach(tag => {
-                    const tagElement = document.createElement('span');
-                    tagElement.className = 'text-[10px] uppercase px-2 py-1 bg-surface0 rounded text-text';
-                    tagElement.textContent = tag;
-                    tagsContainer.appendChild(tagElement);
-                });
-
-                projectCard.appendChild(header);
-                projectCard.appendChild(description);
-                projectCard.appendChild(tagsContainer);
-
-                container.appendChild(projectCard);
-            });
-        }
-
-
-        function copyToClipboard(text, button) {
-            navigator.clipboard.writeText(text).then(() => {
-                const card = button.closest('.card');
-                card.classList.add('copy-flash');
-
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                button.classList.add('bg-green', 'text-crust');
-                button.classList.remove('bg-surface0', 'hover:bg-peach', 'hover:bg-sapphire');
-
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('bg-green', 'text-crust');
-                    button.classList.add('bg-surface0');
-
-                    if (text.includes('@')) {
-                        button.classList.add('hover:bg-peach');
-                    } else {
-                        button.classList.add('hover:bg-sapphire');
-                    }
-                    button.classList.add('hover:text-crust');
-
-                    card.classList.remove('copy-flash');
-                }, 2000);
-
-            }).catch(err => {
-                console.error('Error al copiar: ', err);
-                button.textContent = 'Error!';
-                button.classList.add('bg-peach', 'text-crust');
-
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('bg-peach', 'text-crust');
-                    button.classList.add('bg-surface0');
-                }, 2000);
-            });
-        }
-
+        // Modal
         function openModal() {
-            const modal = document.getElementById('projects-modal');
-            modal.classList.add('active');
+            const container = document.getElementById('modal-content');
+            container.innerHTML = data.archive.map(p => `
+                <div class="p-4 border border-main-surface0 rounded-xl bg-main-mantle/50">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-main-blue">${p.name}</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded-full bg-main-surface0 text-main-subtext">${p.status}</span>
+                    </div>
+                    <p class="text-xs text-main-subtext">${p.desc}</p>
+                </div>
+            `).join('');
+            document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            const modal = document.getElementById('projects-modal');
-            modal.classList.remove('active');
+            document.getElementById('modal').classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const themeManager = new ThemeManager();
-
-            document.getElementById('name').textContent = portfolioData.name;
-            document.getElementById('title').textContent = portfolioData.title;
-            document.getElementById('description').textContent = portfolioData.description;
-            renderSkills();
-            renderProjects();
-            renderModalProjects();
-
-            const viewMoreBtn = document.getElementById('view-more-btn');
-            if (viewMoreBtn) {
-                viewMoreBtn.addEventListener('click', openModal);
-            }
-
-            const closeModalBtn = document.getElementById('close-modal');
-            if (closeModalBtn) {
-                closeModalBtn.addEventListener('click', closeModal);
-            }
-
-
-            const modalOverlay = document.getElementById('projects-modal');
-            if (modalOverlay) {
-                modalOverlay.addEventListener('click', function(e) {
-                    if (e.target === modalOverlay) {
-                        closeModal();
-                    }
-                });
-            }
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-                    closeModal();
-                }
-            });
-
-
-            if ('ontouchstart' in window) {
-                const projectCards = document.querySelectorAll('.card');
-                projectCards.forEach(card => {
-                    card.style.cursor = 'pointer';
-                    card.addEventListener('touchstart', function(e) {
-                        if (!e.target.closest('a') && !e.target.closest('button') && !e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('select')) {
-                            this.style.transform = 'translateY(-4px)';
-                            this.style.borderColor = 'var(--mauve)';
-                        }
-                    });
-                    card.addEventListener('touchend', function(e) {
-                        if (!e.target.closest('a') && !e.target.closest('button') && !e.target.closest('input') && !e.target.closest('textarea') && !e.target.closest('select')) {
-                            this.style.transform = 'translateY(0)';
-                            this.style.borderColor = 'var(--surface0)';
-                        }
-                    });
-                });
-            }
+            setTheme(localStorage.getItem('theme') || 'default');
+            updateUI(); 
         });
     </script>
 </body>
