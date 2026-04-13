@@ -1,351 +1,156 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>NopAngel | Systems & Open Source Developer</title>
-    <meta name="description" content="14yo Software Developer focused on low-level systems, kernel dev (BlueOS), and Unix philosophy.">
-    <meta property="og:title" content="NopAngel Portfolio">
-    <meta property="og:description" content="Exploring the depths of C, Rust, and Kernel development.">
-    <meta property="og:type" content="website">
-    <meta name="theme-color" content="#cba6f7">
-
+    <meta name="description" content="this is my portfolio - nopangel">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <title>nopangel // portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { mono: ['JetBrains Mono', 'monospace'] },
-                    colors: {
-                        main: {
-                            base: 'var(--base)', mantle: 'var(--mantle)', crust: 'var(--crust)',
-                            text: 'var(--text)', subtext: 'var(--subtext)', mauve: 'var(--mauve)',
-                            blue: 'var(--blue)', green: 'var(--green)', peach: 'var(--peach)',
-                            sapphire: 'var(--sapphire)', surface0: 'var(--surface0)',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        :root {
-            --base: #1e1e2e; --mantle: #181825; --crust: #11111b;
-            --text: #cdd6f4; --subtext: #bac2de; --mauve: #cba6f7;
-            --blue: #89b4fa; --green: #a6e3a1; --peach: #fab387;
-            --sapphire: #74c7ec; --surface0: #313244;
-        }
-        .theme-gruvbox {
-            --base: #282828; --mantle: #1d2021; --crust: #141617;
-            --text: #ebdbb2; --subtext: #d5c4a1; --mauve: #b16286;
-            --blue: #458588; --green: #98971a; --peach: #d79921;
-            --sapphire: #83a598; --surface0: #3c3836;
-        }
-        .theme-solarized {
-            --base: #002b36; --mantle: #073642; --crust: #00212b;
-            --text: #839496; --subtext: #93a1a1; --mauve: #6c71c4;
-            --blue: #268bd2; --green: #859900; --peach: #cb4b16;
-            --sapphire: #2aa198; --surface0: #586e75;
+        body {
+            background-color: #f0f4f8; 
+            background-image: radial-gradient(#d1e2f3 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: "Courier New", Courier, monospace;
+            color: #445566;
         }
 
-        body {
-            background-color: var(--base);
-            color: var(--text);
-            font-family: 'JetBrains Mono', sans-serif;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .win-outset {
+            border: 3px solid;
+            border-color: #ffffff #aabccf #aabccf #ffffff;
+            background-color: #d9e6f2;
         }
-        .card-hover {
-            transition: all 0.2s ease;
-            border: 1px solid var(--surface0);
+
+        .win-inset {
+            border: 2px solid;
+            border-color: #aabccf #ffffff #ffffff #aabccf;
+            background-color: #ffffff;
         }
-        .card-hover:hover {
-            border-color: var(--mauve);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.5);
+
+        .header-strip {
+            background: linear-gradient(90deg, #b2dfdb, #9fa8da);
+            color: #2c3e50;
+            padding: 2px 8px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            border-bottom: 1px solid #aabccf;
         }
-        .modal-blur {
-            backdrop-filter: blur(8px);
-            background-color: rgba(17, 17, 27, 0.8);
-        }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--base); }
-        ::-webkit-scrollbar-thumb { background: var(--surface0); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--mauve); }
+
+        a { color: #5c6bc0; text-decoration: underline; }
+        a:hover { background-color: #ffffff; color: #26a69a; }
+
+        .blink { animation: blinker 1.5s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        
+        .pixelated { image-rendering: pixelated; }
     </style>
 </head>
+<body>
 
-<body class="font-mono selection:bg-main-mauve/30">
-
-    <div class="fixed top-6 right-6 z-50 flex gap-2">
-        <div class="relative group">
-            <button id="lang-toggle" class="bg-main-mantle border border-main-surface0 p-3 rounded-xl flex items-center gap-2 hover:border-main-blue transition-all group">
-                <i class="bi bi-translate text-main-blue"></i>
-                <span id="current-lang-name" class="hidden md:inline text-sm uppercase">ES</span>
-            </button>
-            <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-main-mantle border border-main-surface0 rounded-xl p-2 shadow-2xl">
-                <button onclick="setLanguage('es')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm">Español</button>
-                <button onclick="setLanguage('en')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm">English</button>
-                <button onclick="setLanguage('fr')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm">Français</button>
-            </div>
-        </div>
-
-        <div class="relative group">
-            <button id="theme-toggle" class="bg-main-mantle border border-main-surface0 p-3 rounded-xl flex items-center gap-2 hover:border-main-mauve transition-all group">
-                <i class="bi bi-palette text-main-mauve"></i>
-                <span id="current-theme-name" class="hidden md:inline text-sm">Catppuccin</span>
-            </button>
-            <div id="theme-menu" class="hidden absolute right-0 mt-2 w-48 bg-main-mantle border border-main-surface0 rounded-xl p-2 shadow-2xl">
-                <button onclick="setTheme('default')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-[#cba6f7]"></span> Catppuccin
-                </button>
-                <button onclick="setTheme('gruvbox')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-[#b16286]"></span> Gruvbox
-                </button>
-                <button onclick="setTheme('solarized')" class="w-full text-left p-2 hover:bg-main-surface0 rounded-lg text-sm flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-[#6c71c4]"></span> Solarized
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <main class="max-w-5xl mx-auto px-6 py-20">
+    <div class="max-w-4xl mx-auto space-y-8 p-4 md:p-10">
         
-        <header class="flex flex-col md:flex-row items-center gap-10 mb-24">
-            <div class="flex-1 text-center md:text-left">
-                <h1 class="text-5xl md:text-7xl font-bold text-main-mauve mb-4">NopAngel</h1>
-                <p id="hero-tagline" class="text-xl text-main-blue mb-6 font-bold tracking-tight"></p>
-                <p id="hero-desc" class="text-main-subtext leading-relaxed max-w-xl"></p>
+        <header class="win-outset p-1">
+            <div class="header-strip flex justify-between">
+                <span>CORE</span>
+                <span>[x]</span>
             </div>
-            <div class="relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-main-mauve to-main-blue rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                <img src="https://avatars.githubusercontent.com/u/155915830?v=4" 
-                     alt="Avatar" class="relative rounded-full w-44 h-44 border-2 border-main-surface0 object-cover">
+            
+            <div class="bg-white/40 p-1">
+                
+                <div class="w-full win-inset p-1 bg-white mb-2 overflow-hidden flex justify-center items-center">
+                    <img src="assets/banner.png" alt="Linux is the Best Banner" class="max-w-full h-auto">
+                </div>
+                
+                <div class="pt-6 pb-8 text-center">
+                    <h1 class="text-6xl font-black mono tracking-tighter mb-2 text-[#5c6bc0]" style="text-shadow: 2px 2px #b2dfdb;">
+                        angel:p
+                    </h1>
+                    <p class="text-xs font-bold bg-[#f0f4f8] text-[#26a69a] inline-block px-3 py-1 border border-[#b2dfdb]">
+                        **[ LOW-LEVEL ENGINEERING ]** :p
+                    </p>
+                </div>
             </div>
         </header>
 
-        <section class="mb-24">
-            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
-                <i class="bi bi-cpu text-main-mauve"></i> <span id="title-skills">Technical Arsenal</span>
-            </h2>
-            <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
-        </section>
+        <nav class="win-outset p-2 flex justify-center gap-8 font-bold text-xs uppercase tracking-widest bg-[#e8f0f7]">
+            <a href="#about">[ABOUT]</a>
+            <a href="#projects">[WORK]</a>
+            <a href="blog.html">[BLOG]</a>
+            <a href="#contact">[CONTACT]</a>
+        </nav>
 
-        <section class="mb-24">
-            <div class="flex justify-between items-end mb-8">
-                <h2 class="text-2xl font-bold flex items-center gap-3">
-                    <i class="bi bi-hammer text-main-green"></i> <span id="title-projects">Forge & Labs</span>
-                </h2>
-                <button id="btn-archive" onclick="openModal()" class="text-main-mauve hover:underline text-sm font-bold"></button>
-            </div>
-            <div id="main-projects" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-        </section>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            
+            <aside class="md:col-span-1 space-y-4">
+                <div class="win-outset p-1">
+                    <div class="header-strip">badgee:3</div>
+                    <div class="p-2 flex justify-center bg-white">
+                        <img src="assets/badge.gif" alt="Badge" width="70" height="70" class="pixelated">
+                    </div>
+                </div>
 
-        <section class="bg-main-mantle border border-main-surface0 rounded-3xl p-10 text-center">
-            <h2 id="contact-title" class="text-3xl font-bold mb-4"></h2>
-            <p id="contact-desc" class="text-main-subtext mb-8"></p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="mailto:angelgabrielnieto@outlook.com" class="bg-main-surface0 px-6 py-3 rounded-xl hover:bg-main-peach hover:text-main-crust transition-all flex items-center gap-2">
-                    <i class="bi bi-envelope-at"></i> Email
-                </a>
-                <a href="https://github.com/NopAngel" target="_blank" class="bg-main-surface0 px-6 py-3 rounded-xl hover:bg-main-mauve hover:text-main-crust transition-all flex items-center gap-2">
-                    <i class="bi bi-github"></i> GitHub
-                </a>
-            </div>
-        </section>
+                <div class="win-outset p-1">
+                    <div class="header-strip">neofetch</div>
+                    <div class="p-3 text-[10px] leading-tight bg-white space-y-1">
+                        <p>USERNAME: <span class="text-blue-500">NopAngel</span></p>
+                        <p>ENV: <span class="text-purple-500">Neovim/eMacs</span></p>
+                        <p>STATUS: <span class="text-teal-500 blink font-bold">READY :p</span></p>
+                    </div>
+                </div>
+            </aside>
 
-        <footer id="footer-text" class="mt-20 py-8 border-t border-main-surface0 text-center text-main-subtext text-xs uppercase tracking-widest">
-        </footer>
-    </main>
+            <main class="md:col-span-3 space-y-6">
+                <section id="about" class="win-outset p-1">
+                    <div class="header-strip" style="font-family: monospace;">ABOUT_ME.TXT</div>
+                    <div class="p-5 win-inset m-1">
+                        <p class="text-lg leading-relaxed">
+                            heyyyy!! what's up, mennn? my name is <span class="font-bold">nopangel</span>(he), i'm a self-taught developer, specializing in <span class="font-bold">low-level engineering</span>. I love the world of computers and all that stuff :33
+                        </p>
+                    </div>
+                </section>
 
-    <div id="modal" class="hidden fixed inset-0 z-[100] modal-blur flex items-center justify-center p-4">
-        <div class="bg-main-base border border-main-surface0 w-full max-w-4xl max-h-[80vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl">
-            <div class="p-6 border-b border-main-surface0 flex justify-between items-center bg-main-mantle">
-                <h3 id="modal-title" class="text-xl font-bold text-main-mauve"></h3>
-                <button onclick="closeModal()" class="text-2xl hover:text-main-mauve">&times;</button>
-            </div>
-            <div id="modal-content" class="p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <section id="projects" class="win-outset p-1">
+                    <div class="header-strip" style="font-family: monospace;">PROJECTS.LOG</div>
+                    <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="win-inset p-3 hover:bg-blue-50 transition-colors">
+                            <h3 class="font-bold text-blue-600 underline">blueos</h3>
+                            <p class="text-[11px]">kernel with i386 and riscv-V architecture, with memory management and more! :p</p>
+                        </div>
+                        <div class="win-inset p-3 hover:bg-teal-50 transition-colors">
+                            <h3 class="font-bold text-teal-600 underline">blackbird (PR)</h3>
+                            <p class="text-[11px]">blackbird optimization fork (fork accepted, btw)</p>
+                        </div>
+                        <div class="win-inset p-3 hover:bg-indigo-50 transition-colors">
+                            <h3 class="font-bold text-indigo-600 underline">stdstr.h</h3>
+                            <p class="text-[11px]">dynamic string library for C. header only and fast.</p>
+                        </div>
+                        <div class="win-inset p-3 hover:bg-slate-50 transition-colors">
+                            <h3 class="font-bold text-slate-600 underline">nopcore.h</h3>
+                            <p class="text-[11px]">lightweight alternative to <span class="font-bold">gnulibs</span> for minimalist binaries.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="contact" class="win-outset p-1">
+                    <div class="header-strip" style="font-family: monospace;">CONNECTIVITY</div>
+                    <div class="p-4 flex justify-around text-xs font-bold bg-white">
+                        <a href="https://twitter.com/@Nop_angel">TWITTER</a>
+                        <a href="https://github.com/NopAngel">GITHUB</a>
+                        <a href="mailto:angelgabrielnieto@outlook.com">EMAIL</a>
+                    </div>
+                </section>
+            </main>
         </div>
     </div>
+    
+        <div class="header-strip" style="font-family: monospace;"> FOOTER :3</div>
 
-    <script>
-        const translations = {
-            es: {
-                tagline: "Software Developer | Indie & Open Source",
-                description: "Apasionado por el desarrollo de sistemas de bajo nivel, herramientas de CLI y la filosofía Unix. Actualmente construyendo BlueOS.",
-                skillsTitle: "Arsenal Técnico",
-                projectsTitle: "Forja y Laboratorio",
-                archiveBtn: "Ver todo (15+)",
-                contactTitle: "¿Hablamos de código?",
-                contactDesc: "Siempre abierto a colaborar en proyectos C/Rust o hablar sobre desarrollo de kernels.",
-                footer: "© 2026 NopAngel // Construido con precisión",
-                modalTitle: "Archivo Completo",
-                levels: { expert: "Experto", learning: "Aprendiendo" }
-            },
-            en: {
-                tagline: "Software Developer | Indie & Open Source",
-                description: "Passionate about low-level systems, CLI tools, and Unix philosophy. Currently building BlueOS.",
-                skillsTitle: "Technical Arsenal",
-                projectsTitle: "Forge & Labs",
-                archiveBtn: "View all (15+)",
-                contactTitle: "Let's talk code?",
-                contactDesc: "Always open to collaborate on C/Rust projects or discuss kernel development.",
-                footer: "© 2026 NopAngel // Built with precision",
-                modalTitle: "Full Archive",
-                levels: { expert: "Expert", learning: "Learning" }
-            },
-            fr: {
-                tagline: "Développeur Logiciel | Indie & Open Source",
-                description: "Passionné par les systèmes de bas niveau, les outils CLI et la philosophie Unix. En train de construire BlueOS.",
-                skillsTitle: "Arsenal Technique",
-                projectsTitle: "Forge et Laboratoire",
-                archiveBtn: "Voir tout (15+)",
-                contactTitle: "Parlons de code ?",
-                contactDesc: "Toujours prêt à collaborer sur des projets C/Rust ou à discuter de dev kernel.",
-                footer: "© 2026 NopAngel // Construit avec précision",
-                modalTitle: "Archives Complètes",
-                levels: { expert: "Expert", learning: "Apprentissage" }
-            }
-        };
-
-        const data = {
-            skills: {
-                expert: ["C", "C++", "Go", "JS/TS", "Python", "Makefile", "Lua", "Svelte.js", "Astro.js", "React.js", "Next.js"],
-                learning: ["Rust", "Assembly (x86 and i386)", "Java", "Docker", "Bash", "MySQL", "PostgreSQL", "MongoDB"]
-            },
-            projects: [
-                { name: "blueos", desc: "Custom x86/riscv Operating System kernel.", tags: ["C", "ASM"], color: "blue", link: "https://github.com/NopAngel/blueos" },
-                { name: "sushi", desc: "Modern core-utils alternative.", tags: ["C", "Make"], color: "green", link: "https://github.com/NopAngel/sushi" },
-                { name: "dragon", desc: "Fast build system alternative to Make.", tags: ["C++"], color: "mauve", link: "https://github.com/NopAngel/dragon" },
-                { name: "flowleaf", desc: "HTML superset compiler.", tags: ["Go"], color: "peach", link: "https://github.com/NopAngel/flowleaf" }
-            ],
-            archive: [
-                { name: "nopcore", desc: "an improved alternative to gnulib's (in a single header file)", status: "Active" },
-                { name: "stdcore.h", desc: "Alternative to stdio.h", status: "Active" },
-                { name: "stdstr.h", desc: "Dynamic String Library for C", status: "Active" },
-                { name: "rmk", desc: "Safe 'rm' alternative in Rust.", status: "Active" },
-                { name: "axisql", desc: "C-based lightweight SQL engine.", status: "Completed" },
-                { name: "fired", desc: "TUI File Manager for power users.", status: "WIP" }
-            ]
-        };
-
-        let currentLang = localStorage.getItem('lang') || 'es';
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('lang', lang);
-            updateUI();
-            document.getElementById('lang-menu').classList.add('hidden');
-        }
-
-        function setTheme(theme) {
-            document.body.className = theme === 'default' ? '' : `theme-${theme}`;
-            const themeName = theme.charAt(0).toUpperCase() + theme.slice(1);
-            document.getElementById('current-theme-name').innerText = themeName;
-            localStorage.setItem('theme', theme);
-            document.getElementById('theme-menu').classList.add('hidden');
-        }
-
-        function updateUI() {
-            const t = translations[currentLang];
-            document.getElementById('current-lang-name').innerText = currentLang.toUpperCase();
-
-            document.getElementById('hero-tagline').innerText = t.tagline;
-            document.getElementById('hero-desc').innerText = t.description;
-            document.getElementById('title-skills').innerText = t.skillsTitle;
-            document.getElementById('title-projects').innerText = t.projectsTitle;
-            document.getElementById('btn-archive').innerText = t.archiveBtn;
-            document.getElementById('contact-title').innerText = t.contactTitle;
-            document.getElementById('contact-desc').innerText = t.contactDesc;
-            document.getElementById('footer-text').innerText = t.footer;
-            document.getElementById('modal-title').innerText = t.modalTitle;
-
-            renderDynamicContent();
-        }
-
-        function renderDynamicContent() {
-            const t = translations[currentLang];
-            
-            // Skills
-            const skillGrid = document.getElementById('skills-grid');
-            skillGrid.innerHTML = '';
-            for (const [level, items] of Object.entries(data.skills)) {
-                skillGrid.innerHTML += `
-                    <div>
-                        <h4 class="text-xs uppercase tracking-tighter text-main-subtext mb-4">${t.levels[level]}</h4>
-                        <div class="flex flex-wrap gap-2">
-                            ${items.map(s => `<span class="bg-main-mantle border border-main-surface0 px-3 py-1 rounded-lg text-sm hover:border-main-mauve transition-colors">${s}</span>`).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            // Projects
-            const projGrid = document.getElementById('main-projects');
-            projGrid.innerHTML = '';
-            data.projects.forEach(p => {
-                projGrid.innerHTML += `
-                    <div class="card-hover bg-main-mantle p-6 rounded-2xl">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-bold text-main-${p.color}">~/${p.name}</h3>
-                            <a href="${p.link}" target="_blank" class="text-main-subtext hover:text-main-mauve"><i class="bi bi-github text-xl"></i></a>
-                        </div>
-                        <p class="text-sm text-main-subtext mb-6">${p.desc}</p>
-                        <div class="flex gap-2">
-                            ${p.tags.map(t => `<span class="text-[10px] bg-main-surface0 px-2 py-0.5 rounded uppercase">${t}</span>`).join('')}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        document.getElementById('theme-toggle').onclick = (e) => {
-            e.stopPropagation();
-            document.getElementById('theme-menu').classList.toggle('hidden');
-            document.getElementById('lang-menu').classList.add('hidden');
-        };
-
-        document.getElementById('lang-toggle').onclick = (e) => {
-            e.stopPropagation();
-            document.getElementById('lang-menu').classList.toggle('hidden');
-            document.getElementById('theme-menu').classList.add('hidden');
-        };
-
-        window.onclick = (e) => {
-            if(!e.target.closest('#theme-toggle')) document.getElementById('theme-menu').classList.add('hidden');
-            if(!e.target.closest('#lang-toggle')) document.getElementById('lang-menu').classList.add('hidden');
-            if(e.target.id === 'modal') closeModal();
-        };
-
-        // Modal
-        function openModal() {
-            const container = document.getElementById('modal-content');
-            container.innerHTML = data.archive.map(p => `
-                <div class="p-4 border border-main-surface0 rounded-xl bg-main-mantle/50">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="font-bold text-main-blue">${p.name}</span>
-                        <span class="text-[9px] px-2 py-0.5 rounded-full bg-main-surface0 text-main-subtext">${p.status}</span>
-                    </div>
-                    <p class="text-xs text-main-subtext">${p.desc}</p>
-                </div>
-            `).join('');
-            document.getElementById('modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setTheme(localStorage.getItem('theme') || 'default');
-            updateUI(); 
-        });
-    </script>
+    <footer class="flex justify-center items-center pt-[40px] pb-[40px] bg-white">
+        <div>
+            <pre class="mono">@Copyright 2026 NopAngel :3</pre>
+        </div>
+    </footer>
 </body>
 </html>
