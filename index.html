@@ -1,156 +1,65 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="this is my portfolio - nopangel">
-    <meta http-equiv="X-UA-Compatible" content="IE=7">
-    <title>nopangel // portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: #f0f4f8; 
-            background-image: radial-gradient(#d1e2f3 1px, transparent 1px);
-            background-size: 20px 20px;
-            font-family: "Courier New", Courier, monospace;
-            color: #445566;
-        }
-
-        .win-outset {
-            border: 3px solid;
-            border-color: #ffffff #aabccf #aabccf #ffffff;
-            background-color: #d9e6f2;
-        }
-
-        .win-inset {
-            border: 2px solid;
-            border-color: #aabccf #ffffff #ffffff #aabccf;
-            background-color: #ffffff;
-        }
-
-        .header-strip {
-            background: linear-gradient(90deg, #b2dfdb, #9fa8da);
-            color: #2c3e50;
-            padding: 2px 8px;
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            font-size: 12px;
-            border-bottom: 1px solid #aabccf;
-        }
-
-        a { color: #5c6bc0; text-decoration: underline; }
-        a:hover { background-color: #ffffff; color: #26a69a; }
-
-        .blink { animation: blinker 1.5s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-        
-        .pixelated { image-rendering: pixelated; }
-    </style>
+    <title>angel portfolio</title>
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div class="max-w-4xl mx-auto space-y-8 p-4 md:p-10">
-        
-        <header class="win-outset p-1">
-            <div class="header-strip flex justify-between">
-                <span>CORE</span>
-                <span>[x]</span>
-            </div>
-            
-            <div class="bg-white/40 p-1">
-                
-                <div class="w-full win-inset p-1 bg-white mb-2 overflow-hidden flex justify-center items-center">
-                    <img src="assets/banner.png" alt="Linux is the Best Banner" class="max-w-full h-auto">
-                </div>
-                
-                <div class="pt-6 pb-8 text-center">
-                    <h1 class="text-6xl font-black mono tracking-tighter mb-2 text-[#5c6bc0]" style="text-shadow: 2px 2px #b2dfdb;">
-                        angel:p
-                    </h1>
-                    <p class="text-xs font-bold bg-[#f0f4f8] text-[#26a69a] inline-block px-3 py-1 border border-[#b2dfdb]">
-                        **[ LOW-LEVEL ENGINEERING ]** :p
-                    </p>
-                </div>
-            </div>
-        </header>
-
-        <nav class="win-outset p-2 flex justify-center gap-8 font-bold text-xs uppercase tracking-widest bg-[#e8f0f7]">
-            <a href="#about">[ABOUT]</a>
-            <a href="#projects">[WORK]</a>
-            <a href="blog.html">[BLOG]</a>
-            <a href="#contact">[CONTACT]</a>
-        </nav>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            
-            <aside class="md:col-span-1 space-y-4">
-                <div class="win-outset p-1">
-                    <div class="header-strip">badgee:3</div>
-                    <div class="p-2 flex justify-center bg-white">
-                        <img src="assets/badge.gif" alt="Badge" width="70" height="70" class="pixelated">
-                    </div>
-                </div>
-
-                <div class="win-outset p-1">
-                    <div class="header-strip">neofetch</div>
-                    <div class="p-3 text-[10px] leading-tight bg-white space-y-1">
-                        <p>USERNAME: <span class="text-blue-500">NopAngel</span></p>
-                        <p>ENV: <span class="text-purple-500">Neovim/eMacs</span></p>
-                        <p>STATUS: <span class="text-teal-500 blink font-bold">READY :p</span></p>
-                    </div>
-                </div>
-            </aside>
-
-            <main class="md:col-span-3 space-y-6">
-                <section id="about" class="win-outset p-1">
-                    <div class="header-strip" style="font-family: monospace;">ABOUT_ME.TXT</div>
-                    <div class="p-5 win-inset m-1">
-                        <p class="text-lg leading-relaxed">
-                            heyyyy!! what's up, mennn? my name is <span class="font-bold">nopangel</span>(he), i'm a self-taught developer, specializing in <span class="font-bold">low-level engineering</span>. I love the world of computers and all that stuff :33
-                        </p>
-                    </div>
-                </section>
-
-                <section id="projects" class="win-outset p-1">
-                    <div class="header-strip" style="font-family: monospace;">PROJECTS.LOG</div>
-                    <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div class="win-inset p-3 hover:bg-blue-50 transition-colors">
-                            <h3 class="font-bold text-blue-600 underline">blueos</h3>
-                            <p class="text-[11px]">kernel with i386 and riscv-V architecture, with memory management and more! :p</p>
-                        </div>
-                        <div class="win-inset p-3 hover:bg-teal-50 transition-colors">
-                            <h3 class="font-bold text-teal-600 underline">vim-airline (PR)</h3>
-                            <p class="text-[11px]">vim-airline optimization fork (fork accepted, btw)</p>
-                        </div>
-                        <div class="win-inset p-3 hover:bg-indigo-50 transition-colors">
-                            <h3 class="font-bold text-indigo-600 underline">srcery-vim (PR)</h3>
-                            <p class="text-[11px]">srcery-vim optimization fork (fork accepted, btw)</p>
-                        </div>
-                        <div class="win-inset p-3 hover:bg-slate-50 transition-colors">
-                            <h3 class="font-bold text-slate-600 underline">nopcore.h</h3>
-                            <p class="text-[11px]">lightweight alternative to <span class="font-bold">gnulibs</span> for minimalist binaries.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="contact" class="win-outset p-1">
-                    <div class="header-strip" style="font-family: monospace;">CONNECTIVITY</div>
-                    <div class="p-4 flex justify-around text-xs font-bold bg-white">
-                        <a href="https://twitter.com/@Nop_angel">TWITTER</a>
-                        <a href="https://github.com/NopAngel">GITHUB</a>
-                        <a href="mailto:angelgabrielnieto@outlook.com">EMAIL</a>
-                    </div>
-                </section>
-            </main>
-        </div>
+    <div class="modal">
+        <section>
+            <header class="header__modal">
+                <h1>Projects</h1>
+                <p class="close__">x</p>
+            </header>
+            <div class="container_prjs"></div>
+        </section>
     </div>
-    
-        <div class="header-strip" style="font-family: monospace;"> FOOTER :3</div>
+    <header class="header__">
+        <nav>
+             <h1>angel</h1> 
+        </nav>
+    </header>
+    <main>
+        
+        <section class="sect__main">
+            <img src="https://github.com/NopAngel.png" style="border-radius: 100%;width:100px;" />
+            <h2>About :3</h2>
+            <p>heyyyy!! what's up, mennn? my name is nopangel(he), i'm a self-taught developer, specializing in low-level engineering. I love the world of computers and all that stuff :33</p>
 
-    <footer class="flex justify-center items-center pt-[40px] pb-[40px] bg-white">
-        <div>
-            <pre class="mono">@Copyright 2026 NopAngel :3</pre>
-        </div>
+            
+        </section>
+        <section class="sect__project">
+            <div>
+                <h2>Projects.C</h2>
+                <p>my projects:</p>
+            </div>
+            <section>
+
+                <div class="container"></div>
+                <p style="text-align: center;cursor: pointer;" class="show__more">show more</p>
+
+            </section>
+        </section>
+    
+        <section class="sect__contact">
+            <h2>Contact</h2>
+            <p>my social media contact information</p>
+            <ul>
+                <li><a href="https://github.com/NopAngel">GitHub</a></li>
+                <li><a href="mailto:angelgabrielnieto@outlook.com">Mail</a></li>
+                <li><a href="https://twitter.com/@Nop_angel">Twitter</a></li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>@Copyright 2026 < NopAngel >  </p>
     </footer>
+
+    <script src="assets/main.js"></script>
 </body>
 </html>
