@@ -95,12 +95,12 @@ main {
 .sect__main h2 {
     color: #b5b5b5;
 }
-
+/*
 .sect__main h2, .sect__project h2, .sect__contact h2 {
     color: #66b3ff;
     margin-bottom: 15px;
 }
-
+*/
 .sect__main p, .sect__project p, .sect__contact p {
     color: #e7e7e7;
 }
@@ -117,7 +117,7 @@ main {
 }
 
 .sect__project h2 {
-    color: #b5b5b5;
+    color: #66b3ff;
 }
 
 .cards_projects {
