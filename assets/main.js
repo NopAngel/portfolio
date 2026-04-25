@@ -34,7 +34,7 @@ function create_project (title, description) {
     container.innerHTML += `
         <div class="cards_projects">
             <h1>${title}</h1>
-            <pre>${description}</pre>
+            <p style="font-family: monospace;">${description}</p>
         </div>
     `
 }
@@ -43,7 +43,7 @@ function create_project__modal (title, description) {
     container_prjs.innerHTML += `
         <div class="cards_projects">
             <h1>${title}</h1>
-            <pre>${description}</pre>
+            <p style="font-family: monospace;">${description}</p>
         </div>
     `
 }
